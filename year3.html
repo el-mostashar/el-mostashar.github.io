@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>السنة الثالثة - المستشار المكتبة القانونية</title>
+    <meta name="description" content="مواد ومحاضرات السنة الثالثة - كلية الحقوق - المستشار">
+    
+    <!-- Google Fonts for Arabic -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Bundle (فيه الـ JS + Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-gold: #D4AF37;
+            --secondary-gold: #F4E4BC;
+            --dark-gold: #B8860B;
+            --text-dark: #2C2C2C;
+            --text-light: #666;
+            --white: #FFFFFF;
+            --light-bg: #FEFCF3;
+            --shadow: 0 4px 20px rgba(212, 175, 55, 0.15);
+            --shadow-hover: 0 8px 30px rgba(212, 175, 55, 0.25);
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--white);
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary-gold), var(--dark-gold));
+            color: var(--white);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+            transition: all 0.1s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Amiri', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: var(--white);
+        }
+
+        .logo::before {
+            content: "⚖️";
+            font-size: 2rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.1s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+        }
+
+        .nav-menu a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: var(--secondary-gold);
+            min-width: 160px;
+            box-shadow: var(--shadow);
+            z-index: 1;
+            border-radius: 15px;
+            padding: 0.5rem 0;
+        }
+
+        .dropdown-content a {
+            color: var(--text-dark);
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            display: block;
+            transition: all 0.1s ease;
+        }
+
+        .dropdown-content a:hover {
+            background-color: var(--primary-gold);
+            color: var(--white);
+        }
+
+        .dropdown-item {
+            position: relative;
+            display: inline-block;
+        }
+
+        .sub-dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: var(--secondary-gold);
+            min-width: 160px;
+            box-shadow: var(--shadow);
+            z-index: 1;
+            border-radius: 15px;
+            padding: 0.5rem 0;
+            left: 100%;
+            top: 0;
+        }
+
+        .sub-dropdown-content a {
+            color: var(--text-dark);
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            display: block;
+            transition: all 0.1s ease;
+        }
+
+        .sub-dropdown-content a:hover {
+            background-color: var(--primary-gold);
+            color: var(--white);
+        }
+
+        .dropdown-arrow {
+            margin-left: 0.5rem;
+        }
+
+        .booking-btn {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.1s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+        }
+
+        .booking-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 80px;
+            padding: 40px 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .page-header {
+            text-align: center;
+            padding: 60px 0;
+            background: linear-gradient(135deg, var(--light-bg), var(--secondary-gold));
+            margin-bottom: 60px;
+        }
+
+        .page-title {
+            font-family: 'Amiri', serif;
+            font-size: 3rem;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-family: 'Amiri', serif;
+            font-size: 2.2rem;
+            color: var(--text-dark);
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-gold), var(--dark-gold));
+            border-radius: 2px;
+        }
+
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .subject-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            transition: all 0.1s ease;
+            border-top: 4px solid var(--primary-gold);
+        }
+
+        .subject-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .subject-title {
+            font-family: 'Amiri', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .subject-description {
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        .center-info {
+            background: linear-gradient(135deg, var(--primary-gold), var(--dark-gold));
+            color: var(--white);
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .center-info h3 {
+            font-family: 'Amiri', serif;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .center-info p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary-gold);
+            color: var(--white);
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.1s ease;
+            margin-bottom: 2rem;
+        }
+
+        .back-btn:hover {
+            background: var(--dark-gold);
+            transform: translateY(-2px);
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        /* FAQ Section */
+        .faq-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .faq-item {
+            background: var(--white);
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            transition: all 0.1s ease;
+        }
+
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            width: 100%;
+            background: none;
+            border: none;
+            color: var(--text-dark);
+            font-size: 1.1rem;
+            cursor: pointer;
+        }
+
+        .faq-question:hover {
+            background: var(--secondary-gold);
+            color: var(--dark-gold);
+        }
+
+        .faq-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .faq-answer {
+            display: none;
+            padding: 1rem;
+            background: var(--light-bg);
+            border-top: 4px solid var(--primary-gold);
+        }
+
+        .faq-answer-content {
+            color: var(--text-dark);
+            line-height: 1.7;
+        }
+
+        /* Offers Section */
+        .offers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .offer-card {
+            background: linear-gradient(135deg, var(--primary-gold), var(--dark-gold));
+            color: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            transition: all 0.1s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .offer-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .offer-badge {
+            background: var(--dark-gold);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            margin-bottom: 1rem;
+        }
+
+        .offer-title {
+            font-family: 'Amiri', serif;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .offer-description {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .offer-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .offer-btn {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 013s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+        }
+
+        .offer-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--text-dark);
+            color: var(--white);
+            padding: 40px 0 20px;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .footer h3 {
+            font-family: 'Amiri', serif;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--primary-gold);
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .copyright {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            color: rgba(255,255,255,0.7);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2.2rem;
+            }
+
+            .subjects-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .subject-card {
+                padding: 1.5rem;
+            }
+
+            .center-info {
+                padding: 2rem 1.5rem;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .faq-container {
+                gap: 0.5rem;
+            }
+
+            .faq-question {
+                font-size: 1rem;
+            }
+
+            .faq-answer-content {
+                font-size: 1rem;
+            }
+
+            .offers-grid {
+                gap: 1rem;
+            }
+
+            .offer-card {
+                padding: 1.5rem;
+            }
+
+            .offer-title {
+                font-size: 1.6rem;
+            }
+
+            .offer-description {
+                font-size: 1rem;
+            }
+
+            .offer-price {
+                font-size: 1.3rem;
+            }
+
+            .offer-btn {
+                padding: 0.7rem 1.2rem;
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header {
+                padding: 40px 0;
+            }
+
+            .page-title {
+                font-size: 1.8rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="index.html" class="logo">المستشار</a>
+            
+            <!-- زرار الحجز -->
+            <div class="fixed-booking">
+                <button class="booking-btn" onclick="openBookingModal()">
+                    📞 الحجز والتواصل
+                </button>
+            </div>
+
+            <!-- المودال -->
+            <!-- Fixed Booking Button for Mobile -->
+            <div class="fixed-booking">
+                <button class="booking-btn" onclick="openBookingModal()">
+                    📞 الحجز والتواصل
+                </button>
+            </div>
+
+            <!-- Booking Modal -->
+            <div id="bookingModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeBookingModal()">&times;</span>
+                    <h2>طرق التواصل</h2>
+
+                    <div class="contact-options">
+                        <div class="contact-option" onclick="callDirect()">
+                            <span>📞</span>
+                            <div>اتصال مباشر</div>
+                        </div>
+                        <div class="contact-option" onclick="openWhatsApp()">
+                            <span>💬</span>
+                            <div>واتساب</div>
+                        </div>
+                        <div class="contact-option" onclick="openWhatsAppgrop()">
+                            <span>💬</span>
+                            <div>جروب الواتساب</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <style>
+                /* زرار ثابت تحت */
+                /* Loading animation */
+                .loading {
+                    opacity: 0;
+                    transform: translateY(40px);
+                    transition: all 0.6s ease-out;
+                }
+
+                .loading.loaded {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+
+                /* Booking Button Styles */
+                .booking-btn {
+                    background: linear-gradient(135deg, #28a745, #20c997);
+                    color: white;
+                    padding: 0.8rem 1.5rem;
+                    border: none;
+                    border-radius: 25px;
+                    font-weight: 600;
+                    font-size: 0.9rem;
+                    cursor: pointer;
+                    transition: all 0.1s ease;
+                    text-decoration: none;
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+                    animation: pulse 2s infinite;
+                }
+
+                .booking-btn:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+                }
+
+                @keyframes pulse {
+                    0% {
+                        box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+                    }
+
+                    50% {
+                        box-shadow: 0 4px 20px rgba(40, 167, 69, 0.5);
+                    }
+
+                    100% {
+                        box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+                    }
+                }
+
+                /* Modal Styles */
+                .modal {
+                    display: none;
+                    position: fixed;
+                    z-index: 2000;
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.5);
+                    backdrop-filter: blur(5px);
+                }
+
+                .modal-content {
+                    background-color: var(--white);
+                    margin: 5% auto;
+                    padding: 2rem;
+                    border-radius: 20px;
+                    width: 90%;
+                    max-width: 500px;
+                    position: relative;
+                    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+                    animation: modalSlideIn 0.3s ease;
+                }
+
+                @keyframes modalSlideIn {
+                    from {
+                        opacity: 0;
+                        transform: translateY(-50px);
+                    }
+
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+
+                .close {
+                    color: #aaa;
+                    float: left;
+                    font-size: 28px;
+                    font-weight: bold;
+                    cursor: pointer;
+                    position: absolute;
+                    top: 15px;
+                    left: 20px;
+                }
+
+                .close:hover {
+                    color: var(--primary-gold);
+                }
+
+                .modal h2 {
+                    font-family: 'Amiri', serif;
+                    color: var(--text-dark);
+                    margin-bottom: 1.5rem;
+                    text-align: center;
+                }
+
+                .contact-options {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+                    gap: 1rem;
+                    margin-bottom: 2rem;
+                }
+
+                .contact-option {
+                    background: var(--light-bg);
+                    padding: 1rem;
+                    border-radius: 15px;
+                    text-align: center;
+                    cursor: pointer;
+                    transition: all 0.1s ease;
+                    border: 2px solid transparent;
+                    color: #2C2C2C;
+                }
+
+                .contact-option:hover {
+                    background: var(--secondary-gold);
+                    border-color: var(--primary-gold);
+                    transform: translateY(-3px);
+                }
+
+                .contact-option span {
+                    font-size: 2rem;
+                    display: block;
+                    margin-bottom: 0.5rem;
+                }
+
+                .booking-form {
+                    display: grid;
+                    gap: 1rem;
+                }
+
+                .form-group {
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .form-group label {
+                    margin-bottom: 0.5rem;
+                    font-weight: 600;
+                    color: var(--text-dark);
+                }
+
+                .form-group input,
+                .form-group select,
+                .form-group textarea {
+                    padding: 0.8rem;
+                    border: 2px solid #e0e0e0;
+                    border-radius: 10px;
+                    font-size: 1rem;
+                    transition: border-color 0.1s ease;
+                    font-family: 'Cairo', sans-serif;
+                }
+
+                .form-group input:focus,
+                .form-group select:focus,
+                .form-group textarea:focus {
+                    outline: none;
+                    border-color: var(--primary-gold);
+                }
+
+                .submit-btn {
+                    background: linear-gradient(135deg, var(--primary-gold), var(--dark-gold));
+                    color: white;
+                    padding: 1rem;
+                    border: none;
+                    border-radius: 10px;
+                    font-size: 1.1rem;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: all 0.1s ease;
+                    margin-top: 1rem;
+                }
+
+                .submit-btn:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+                }
+
+                /* Fixed booking button */
+                .fixed-booking {
+                    position: fixed;
+                    bottom: 20px;
+                    right: 20px;
+                    z-index: 1500;
+                    display: none;
+                }
+
+                @media (max-width: 768px) {
+                    .fixed-booking {
+                        display: block;
+                    }
+
+                    .modal-content {
+                        margin: 10% auto;
+                        width: 90%;
+                        height: 70%;
+                        padding: 1.5rem;
+                    }
+
+                    .contact-options {
+                        grid-template-columns: 1fr;
+                        color: #2C2C2C;
+                    }
+                }
+            </style>
+
+            <script>
+                // Booking Modal Functions
+                function openBookingModal() {
+                    document.getElementById('bookingModal').style.display = 'block';
+                    document.body.style.overflow = 'hidden';
+                }
+
+                function closeBookingModal() {
+                    document.getElementById('bookingModal').style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+
+                function callDirect() {
+                    window.location.href = 'tel:01277776870';
+                }
+
+                function openWhatsApp() {
+                    const message = encodeURIComponent('السلام عليكم، أريد الاستفسار عن خدمات المستشار');
+                    window.open(`https://wa.me/201277776870?text=${message}`, '_blank');
+                }
+                function openWhatsAppgrop() {
+                    const message = encodeURIComponent('السلام عليكم، أريد الاستفسار عن خدمات المستشار');
+                    window.open("https://chat.whatsapp.com/JSbUDx3RTWt10bQZvdAN5f?mode=ems_copy_t", "_blank");
+                }
+
+                // Close modal when clicking outside
+                window.onclick = function (event) {
+                    const modal = document.getElementById('bookingModal');
+                    if (event.target === modal) {
+                        closeBookingModal();
+                    }
+                }
+
+                // Close modal with Escape key
+                document.addEventListener('keydown', function (event) {
+                    if (event.key === 'Escape') {
+                        closeBookingModal();
+                    }
+                });
+
+            </script>
+
+
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Page Header -->
+        <section class="page-header">
+            <div class="container">
+                <h1 class="page-title">الفرقه الثالثة</h1>
+                <p class="page-subtitle">الفرقة التالتة تعتبر من أهم سنوات الكلية، لأنها بداية التخصص والدخول بجد في عمق فروع القانون. الطالب هنا بينتقل من دراسة المبادئ العامة للقانون إلى دراسة مواد أكثر تخصصًا وعملية.</p>
+            </div>
+        </section>
+
+        <div class="container">
+            <a href="index.html#stages" class="back-btn">
+                ← العودة للمراحل الدراسية
+            </a>
+
+            <!-- Subjects Section -->
+            <section class="section">
+                <h2 class="section-title">مواد الفرقه الثالثة</h2>
+                <div class="subjects-grid">
+                    <div class="subject-card">
+                        <h3 class="subject-title">القانون المدني </h3>
+                        <p class="subject-description">
+القانون المدني في الفرقة التالتة بيركز على أحكام الالتزام، وبيوضح كيفية تنفيذ الالتزامات سواء تنفيذًا عينيًا أو عن طريق التعويض، وكمان الضمانات اللي بتكفل الوفاء زي الكفالة والرهن. بيتناول انتقال الحقوق والالتزامات عن طريق الحوالة، وأسباب انقضاء الالتزام زي الوفاء والمقاصة والإبراء واستحالة التنفيذ. الهدف من المادة إن الطالب يفهم القواعد العملية اللي بتنظم مصير الالتزامات بعد نشأتها، باعتبارها الأساس في كل المعاملات المدنية.                        </p>
+                    </div>
+
+                    <div class="subject-card">
+                        <h3 class="subject-title">القانون الادارى</h3>
+                        <p class="subject-description">
+القانون الإداري هو القانون الذي ينظم نشاط الإدارة العامة وأجهزتها، وعلاقتها بالأفراد. يركز على موضوعات مثل: القرارات الإدارية وشروطها والطعن عليها، العقود الإدارية، المرفق العام وكيفية إدارته، والموظف العام وحقوقه وواجباته، بالإضافة إلى دور القضاء الإداري ومجلس الدولة. الهدف من دراسته هو فهم القواعد التي تحكم تصرفات الدولة إدارياً وضمان حقوق الأفراد أمامها.                        </p>
+                    </div>
+
+                    <div class="subject-card">
+                        <h3 class="subject-title">القانون التجارى </h3>
+                        <p class="subject-description">
+القانون التجاري هو فرع من فروع القانون الخاص ينظم الأعمال التجارية والتجار. في الفرقة التالتة بيدرس الطالب ماهية العمل التجاري وأنواعه، وشروط اكتساب صفة التاجر وما يترتب عليها من التزامات مثل مسك الدفاتر التجارية، بالإضافة إلى الأعمال التجارية المختلطة، ونظام الإفلاس والتسوية القضائية، مع تمهيد لدراسة الشركات التجارية. الهدف من المادة هو فهم القواعد التي تحكم النشاط التجاري في المجتمع وضمان حقوق كل من التجار والمتعاملين معهم.                    </div>
+
+                    <div class="subject-card">
+                        <h3 class="subject-title">قانون المرافعات</h3>
+                        <p class="subject-description">
+قانون المرافعات هو فرع من فروع القانون الإجرائي، بيركز على القواعد المنظمة لرفع الدعاوى والفصل فيها. في الفرقة التالتة بيتعلم الطالب كيفية اللجوء للقضاء، وشروط قبول الدعوى، واختصاص المحاكم، وإجراءات الإعلان، وسير الخصومة من بدايتها لحد صدور الحكم. كمان بيتناول طرق الطعن في الأحكام زي الاستئناف والنقض. الهدف من المادة إن الطالب يعرف الإجراءات اللي بيتم بيها حماية الحقوق أمام القضاء وضمان سير العدالة.                        </p>
+                    </div>
+
+                    <div class="subject-card">
+                        <h3 class="subject-title">القانون الجنائى</h3>
+                        <p class="subject-description">
+القانون الجنائي في الفرقة التالتة بيتناول القسم الخاص، وده معناه دراسة الجرائم المحددة في القانون وعقوباتها. الطالب بيتعرف على الجرائم الماسة بالأشخاص زي القتل والجرح، والجرائم الماسة بالأموال زي السرقة والنصب وخيانة الأمانة، وكمان الجرائم الماسة بالمصلحة العامة زي الرشوة والتزوير. الهدف من المادة إن الطالب يميز بين أنواع الجرائم وعناصرها، ويفهم العقوبات المقررة لها، عشان يقدر يطبق القواعد الجنائية بشكل عملي.                        </p>
+                    </div>
+
+                    <div class="subject-card">
+                        <h3 class="subject-title">القانون الدولي الخاص</h3>
+                        <p class="subject-description">
+القانون الدولي الخاص بيتناول القواعد اللي بتنظم العلاقات القانونية ذات العنصر الأجنبي، يعني لما يكون في علاقة فيها طرف أو عنصر مرتبط بدولة أخرى. بيدرس الطالب موضوعات زي تنازع القوانين (أي قانون يطبق لو العلاقة لها أكثر من صلة بدول مختلفة)، وتنازع الاختصاص القضائي الدولي (أي محكمة تختص بالنظر في النزاع)، وكمان الجنسية ومركز الأجانب. الهدف إن الطالب يعرف إزاي يتحدد القانون أو المحكمة المختصة في القضايا اللي تتجاوز حدود الدولة.                        </p>
+                    </div>
+                    <div class="subject-card">
+                        <h3 class="subject-title">قواعد البحث</h3>
+                        <p class="subject-description">
+قواعد البحث مادة تدريبية هدفها تعليم الطالب أسس إعداد البحوث القانونية بشكل علمي. بتركز على طرق جمع المعلومات من مصادرها (كتب – تشريعات – أحكام قضائية)، وكيفية التوثيق والاقتباس، وتنظيم خطة البحث وعناصره (مقدمة – موضوع – خاتمة). كمان بتعلم مهارات الكتابة الأكاديمية وصياغة الأفكار القانونية بوضوح. الهدف إن الطالب يكتسب مهارة البحث والقدرة على إعداد دراسات قانونية صحيحة يعتمد عليها في الحياة الجامعية والمهنية.                    </div>
+                </div>
+            </section>
+
+
+            <div id="myCarousel" class="carousel slide" style="margin-top: 60px;" data-bs-ride="carousel"
+                data-bs-interval="1000">
+                <div class="carousel-inner">
+                                        <h2 class="section-title"> جداول المحاضرات</h2>
+
+                    <div class="carousel-item active">
+                        <img src="img/WhatsApp Image 2025-09-18 at 01.08.57_dbbefca2.jpg" class="d-block w-100"
+                            alt="...">
+                    </div>
+                
+
+                </div>
+
+                <!-- أزرار التنقل -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+            </div>
+
+            <button onclick="openView2('30', 'final_1', 'final3.html')" class="back-btn"
+                style="width: 350px; margin-top:10px ;font-size: 25px; cursor: pointer; border: none;">
+                ←مذكرات المراجعه النهائيه
+            </button>
+
+            
+            <!-- Center Info Section -->
+            <section class="section">
+                <div class="center-info">
+                    <h3>مركز المستشار - خبرة في التخصص</h3>
+                    <p>السنة الثالثة هي سنة التخصص الحقيقي، حيث تتعمق في دراسة القوانين المتخصصة. نحن في "المستشار" نقدم لك الخبرة والدعم اللازم لإتقان هذه المواد المعقدة.</p>
+                    <p><strong>🎁 محاضرات مجانية متخصصة:</strong> نقدم محاضرات مجانية في أهم مواد السنة الثالثة، خاصة قانون المرافعات والأحوال الشخصية، مع التركيز على الجانب العملي والتطبيقي.</p>
+                    <p>مع خبرتنا التي تمتد لأكثر من 20 عاماً، نضمن لك فهماً عميقاً للمواد التخصصية وربطها بالواقع العملي، مما يؤهلك للتفوق الأكاديمي والمهني.</p>
+                    <p><strong>خدماتنا المتخصصة:</strong> شروحات عملية للإجراءات القانونية، تحليل القضايا العملية، مذكرات متخصصة، ونماذج امتحانات شاملة.</p>
+                </div>
+            </section>
+
+ 
+            
+           <!-- FAQ Section -->
+            <section class="faq section">
+                <div class="container">
+                    <h2 class="section-title">الأسئلة الشائعة</h2>
+                    <div class="faq-container">
+                        <div class="faq-item">
+                            <button class="faq-question" onclick="toggleFAQ(this)">
+                                <span>سنة تالته أصعب من تانيه؟</span>
+                                <span class="faq-icon">▼</span>
+                            </button>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+                            يرى البعض أن سنة ثانية أصعب نظرًا لضخامة مواضيعها مثل الأحوال الشخصية والالتزامات، بينما يرى آخرون أن السنة الثالثة هي الأصعب لأنها تركز على مواد التخصص الدقيقة التي تتطلب فهماً أعمق. وفى كلتا الحالتين مع المستشار انت فى آمان
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <button class="faq-question" onclick="toggleFAQ(this)">
+                                <span>المواد بتكون تراكمية ولا جديدة؟</span>
+                                <span class="faq-icon">▼</span>
+                            </button>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+                            مواد جديدة
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <button class="faq-question" onclick="toggleFAQ(this)">
+                                <span>هل في تغييرات في نظام الحضور والغياب؟</span>
+                                <span class="faq-icon">▼</span>
+                            </button>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+                             لا يوجد تغييرات
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <button class="faq-question" onclick="toggleFAQ(this)">
+                                <span>أذاكر منين: الكتاب ولا الملازم؟</span>
+                                <span class="faq-icon">▼</span>
+                            </button>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+                         الملازم أسهل وأوضح من الكتاب
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <button class="faq-question" onclick="toggleFAQ(this)">
+                                <span>هل لازم أذاكر من أول الترم ولا المذكرات تكفي في الآخر؟</span>
+                                <span class="faq-icon">▼</span>
+                            </button>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+                            المذكرات تكفى سواء فى الشرح او المراجعه النهائية 
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <button class="faq-question" onclick="toggleFAQ(this)">
+                                <span>إيه أنسب طريقة أراجع بيها قبل الامتحان؟</span>
+                                <span class="faq-icon">▼</span>
+                            </button>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+                            كورسات ومذكرات مراجعه تشمل كل المهم فى المادة
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <button class="faq-question" onclick="toggleFAQ(this)">
+                                <span>الامتحان بييجي منين بالظبط؟</span>
+                                <span class="faq-icon">▼</span>
+                            </button>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+                           لن يخرج من مذكرات المستشار
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <button class="faq-question" onclick="toggleFAQ(this)">
+                                <span>هل في أسئلة على وقائع وحالات عملية؟</span>
+                                <span class="faq-icon">▼</span>
+                            </button>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+                          فى القانون الجنائى والشريعه الإسلامية
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <button class="faq-question" onclick="toggleFAQ(this)">
+                                <span>هل لازم أحضر المحاضرات كلها؟</span>
+                                <span class="faq-icon">▼</span>
+                            </button>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+                         حضور المحاضرات غير الزامى
+
+                                </div>
+                            </div>
+                        </div>
+
+                     
+
+                        <div class="faq-item">
+                            <button class="faq-question" onclick="toggleFAQ(this)">
+                                <span>هل السكاشن مهمة زي المحاضرات؟</span>
+                                <span class="faq-icon">▼</span>
+                            </button>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+                               السكاشن غير مهمه
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <button class="faq-question" onclick="toggleFAQ(this)">
+                                <span>لو ما فهمتش مادة معينة أعمل إيه؟</span>
+                                <span class="faq-icon">▼</span>
+                            </button>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+                              احجز كورس فورا مع المستشار
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <button class="faq-question" onclick="toggleFAQ(this)">
+                                <span>هل الملازم تكفي لوحدها؟</span>
+                                <span class="faq-icon">▼</span>
+                            </button>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+                             الملازم تكفى ولن تخرج منها الامتحان
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <button class="faq-question" onclick="toggleFAQ(this)">
+                                <span>أبدأ تدريب من دلوقتي ولا أستنى؟</span>
+                                <span class="faq-icon">▼</span>
+                            </button>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+                                ابدا لزيادة الخبرة
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- FAQ Section -->
+            <section class="faq section">
+                <div class="container">
+                    <h2 class="section-title">الأسئلة الشائعة عن المستشار</h2>
+                    <div class="faq-container">
+                        <div class="faq-item">
+                            <button class="faq-question" onclick="toggleFAQ(this)">
+                                <span>المذكرات بتاعتكم معتمدة منين؟</span>
+                                <span class="faq-icon">▼</span>
+                            </button>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+                المذكرات متلخصة من محاضرات الدكاترة والمراجع الأساسية، ومغطية المنهج كامل.
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <button class="faq-question" onclick="toggleFAQ(this)">
+                                <span>هل المذكرات تغني عن حضور المحاضرات؟
+ </span>
+                                <span class="faq-icon">▼</span>
+                            </button>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+        المذكرات كافية جدًا للمذاكرة والامتحان، لكن اللي يقدر يحضر محاضرة يستفيد أكتر.
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <button class="faq-question" onclick="toggleFAQ(this)">
+                                <span>هل تتوفر مذكرات مبسطة لجميع المواد؟</span>
+                                <span class="faq-icon">▼</span>
+                            </button>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+                                    نعم، نوفر في المستشار مذكرات مبسطة وشاملة لجميع مواد السنة التالته، مع التلخيصات
+                                    المركزة والأمثلة العملية.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <button class="faq-question" onclick="toggleFAQ(this)">
+                                <span> هل فيه ملخصات سريعة قبل الامتحان؟</span>
+                                <span class="faq-icon">▼</span>
+                            </button>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+              أيوه، بنوفر ملخصات مركزة للمراجعة النهائية + مراجعات ليلة الامتحان.
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <button class="faq-question" onclick="toggleFAQ(this)">
+                                <span> هل بتعملوا مراجعات جماعية؟
+</span>
+                                <span class="faq-icon">▼</span>
+                            </button>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+              أيوه، بنوفر طبعا كورسات على اعلى مستوى لجميع المواد مع افضل الدكاتره المتخصصين.
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <button class="faq-question" onclick="toggleFAQ(this)">
+                                <span> لو المادة كبيرة وصعبة أعمل إيه؟
+</span>
+                                <span class="faq-icon">▼</span>
+                            </button>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+بنوفرها في صورتين: مذكرة كاملة + كورسات مع افضل الدكاتره، بحيث استحاله تبقى فى حاجه صعبة.
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <button class="faq-question" onclick="toggleFAQ(this)">
+                                <span> الأسعار كام؟
+</span>
+                                <span class="faq-icon">▼</span>
+                            </button>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+الأسعار بتكون مناسبة جدًا وبتختلف حسب المادة (المذكرة الكاملة غير الملخص).
+
+                                </div>
+                            </div>
+                        </div>
+                       
+                        <div class="faq-item">
+                            <button class="faq-question" onclick="toggleFAQ(this)">
+                                <span> إيه اللي يميزكم عن أي مكتبة تانية؟</span>
+                                <span class="faq-icon">▼</span>
+                            </button>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+المذكرات منظمة، ملخصة بشكل سهل، ومبنية على خبرة في الامتحانات.كمان بنقدم كورسات على اعلى مستوى, كمان فيه متابعة طول الترم وأجوبة على أسئلة الطلبة.
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Offers Section -->
+           
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="footer-content">
+            <h3>تواصل معنا</h3>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span>📍</span>
+                    <span >بنها -  
+                          برج سما (1) امام البوابه الاولى لكليه الحقوق (الاداره والسنتر)</span>
+                </div>
+                <div class="contact-item">
+                    <span>📍</span>
+                    <span> بنها - اخر سور كليه الحقوق (المكتبه)</span>
+                </div>
+                <a href="https://maps.app.goo.gl/YB4XuCGAadWpcDbh7" target="_blank" class="map-link">
+                    📍 موقعنا على الخريطة
+                </a>
+
+                <style>
+                    .map-link {
+                        display: inline-block;
+                        background: linear-gradient(135deg, #a5c07c, #a4a286);
+                        color: #fff;
+                        padding: 10px 15px;
+                        border-radius: 30px;
+                        font-size: 15px;
+                        font-weight: bold;
+                        text-decoration: none;
+                        transition: 0.3s;
+                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                    }
+
+                    .map-link:hover {
+                        background: linear-gradient(135deg, #eff7b0, #f8ff1f);
+                        transform: translateY(-3px);
+                        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+                                                color: #000000;
+
+                    }
+                </style>
+                <div class="contact-item">
+                    <span>📞</span>
+                    <span>01277776870</span>
+                </div>
+                <div class="contact-item">
+                    <span>📞</span>
+                    <span>01273665287</span>
+                </div>
+                <div class="contact-item">
+                    <span>📞</span>
+                    <span>01021404059  (تقييم الخدمه)</span>
+                </div>
+                <div class="contact-item">
+                    <span>⏰</span>
+                    <span>يومياً من 9 صباحاً - 4 مساءً</span>
+                </div>
+            </div>
+            <button class="booking-btn" onclick="openBookingModal()" style="margin: 1rem 0;">
+                📱 الحجز والتواصل
+            </button>
+            <div class="copyright">
+                <p>&copy; 2025-2026 المستشار - المكتبة القانونية. جميع الحقوق محفوظة.</p>
+                <p>خبرة تتجاوز 20 عاماً في خدمة طلاب كلية الحقوق</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleFAQ(button) {
+            const faqAnswer = button.nextElementSibling;
+            const faqIcon = button.querySelector('.faq-icon');
+            if (faqAnswer.style.display === 'block') {
+                faqAnswer.style.display = 'none';
+                faqIcon.textContent = '▼';
+            } else {
+                faqAnswer.style.display = 'block';
+                faqIcon.textContent = '▲';
+            }
+        }
+
+        function toggleDropdown(event, element) {
+            event.preventDefault();
+            const dropdownContent = element.nextElementSibling;
+            if (dropdownContent.style.display === 'block') {
+                dropdownContent.style.display = 'none';
+                element.querySelector('.dropdown-arrow').textContent = '▼';
+            } else {
+                dropdownContent.style.display = 'block';
+                element.querySelector('.dropdown-arrow').textContent = '▲';
+            }
+        }
+
+        function toggleSubDropdown(event, element) {
+            event.preventDefault();
+            const subDropdownContent = element.nextElementSibling;
+            if (subDropdownContent.style.display === 'block') {
+                subDropdownContent.style.display = 'none';
+                element.querySelector('.dropdown-arrow').textContent = '◄';
+            } else {
+                subDropdownContent.style.display = 'block';
+                element.querySelector('.dropdown-arrow').textContent = '▲';
+            }
+        }
+
+        function showUnderConstruction(event) {
+            event.preventDefault();
+            alert('هذه الصفحة تحت الإنشاء.');
+        }
+    </script>
+</body>
+
+<script>
+    // Cookie helper functions
+    function getCookie(name) {
+        const nameEQ = name + "=";
+        const ca = document.cookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+
+    function openView2(courseValue, pdf_id, targetUrl = 'activation-code/view-pdf.html') {
+        console.log("Opening view with courseValue:", courseValue, "pdf_id:", pdf_id, "targetUrl:", targetUrl);
+
+        // Check if cookie exists for this pdf_id
+        const cookieName = 'pdf_' + pdf_id.replace(/\s+/g, '_') + '_key';
+        const storedKey = getCookie(cookieName);
+
+        if (storedKey) {
+            // Cookie exists - redirect directly to target URL
+            console.log("Cookie found for pdf_id:", pdf_id, "- Redirecting to", targetUrl);
+            window.open(targetUrl + '?pdf_id=' + encodeURIComponent(pdf_id) + '&course=' + courseValue, '_blank');
+        } else {
+            // No cookie - redirect to activation page with target URL
+            console.log("No cookie found for pdf_id:", pdf_id, "- Redirecting to activation-key.html");
+            window.open('activation-code/activation-key.html?course=' + courseValue + '&pdf_id=' + encodeURIComponent(pdf_id) + '&targetUrl=' + encodeURIComponent(targetUrl), '_blank');
+        }
+    }
+</script>
+
+</html>
