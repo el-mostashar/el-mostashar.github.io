@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>السنة الأولى - المستشار المكتبة القانونية</title>
+    <meta name="description" content="مواد ومحاضرات السنة الأولى - كلية الحقوق - المستشار">
+
+    <!-- Google Fonts for Arabic -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Amiri:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-gold: #D4AF37;
+            --secondary-gold: #F4E4BC;
+            --dark-gold: #B8860B;
+            --text-dark: #2C2C2C;
+            --text-light: #666;
+            --white: #FFFFFF;
+            --light-bg: #FEFCF3;
+            --shadow: 0 4px 20px rgba(212, 175, 55, 0.15);
+            --shadow-hover: 0 8px 30px rgba(212, 175, 55, 0.25);
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--white);
+            overflow-x: hidden;
+        }
+
+        .deblom {
+            background: #fbca1f;
+            font-family: inherit;
+            padding: 0.6em 1.3em;
+            font-weight: 900;
+            font-size: 18px;
+            border: 3px solid black;
+            border-radius: 0.4em;
+            box-shadow: 0.1em 0.1em;
+            cursor: pointer;
+            margin-bottom: 25px;
+
+            /* الترانزيشن هنا */
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .deblom:hover {
+            transform: translate(-0.05em, -0.05em);
+            box-shadow: 0.15em 0.15em;
+        }
+
+        .deblom:active {
+            transform: translate(0.05em, 0.05em);
+            box-shadow: 0.05em 0.05em;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary-gold), var(--dark-gold));
+            color: var(--white);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+            transition: all 0.1s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Amiri', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: var(--white);
+        }
+
+        .logo::before {
+            content: "⚖️";
+            font-size: 2rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            color: var(--text-dark) !important;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.1s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+        }
+
+        .nav-menu a:hover {
+            background-color: var(--light-bg) !important;
+            color: var(--primary-gold) !important;
+        }
+
+        .booking-btn {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.1s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+        }
+
+        .booking-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 80px;
+            padding: 40px 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .page-header {
+            text-align: center;
+            padding: 60px 0;
+            background: linear-gradient(135deg, var(--light-bg), var(--secondary-gold));
+            margin-bottom: 60px;
+        }
+
+        .page-title {
+            font-family: 'Amiri', serif;
+            font-size: 3rem;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-family: 'Amiri', serif;
+            font-size: 2.2rem;
+            color: var(--text-dark);
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-gold), var(--dark-gold));
+            border-radius: 2px;
+        }
+
+        .intro-text {
+            background: var(--light-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            border-right: 4px solid var(--primary-gold);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .subject-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            transition: all 0.1s ease;
+            border-top: 4px solid var(--primary-gold);
+        }
+
+        .subject-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .subject-title {
+            font-family: 'Amiri', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .subject-description {
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        .center-info {
+            background: linear-gradient(135deg, var(--primary-gold), var(--dark-gold));
+            color: var(--white);
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .center-info h3 {
+            font-family: 'Amiri', serif;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .center-info p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary-gold);
+            color: var(--white);
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.1s ease;
+            margin-bottom: 2rem;
+        }
+
+        .back-btn:hover {
+            background: var(--dark-gold);
+            transform: translateY(-2px);
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        /* FAQ Section */
+        .faq {
+            padding: 60px 0;
+            background: var(--light-bg);
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--white);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 1.5rem;
+            background: none;
+            border: none;
+            text-align: right;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: var(--light-bg);
+        }
+
+        .faq-question.active {
+            background: var(--secondary-gold);
+            color: var(--dark-gold);
+        }
+
+        .faq-icon {
+            font-size: 1.2rem;
+            transition: transform 0.1s ease;
+        }
+
+        .faq-question.active .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.1s ease;
+        }
+
+        .faq-answer.active {
+            max-height: 200px;
+        }
+
+        .faq-answer-content {
+            padding: 0 1.5rem 1.5rem;
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        /* Offers Section */
+        .offers {
+            padding: 60px 0;
+            background: linear-gradient(135deg, var(--primary-gold), var(--dark-gold));
+            color: var(--white);
+        }
+
+        .offers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .offer-card {
+            background: var(--white);
+            color: var(--text-dark);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .offer-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-gold), var(--dark-gold));
+        }
+
+        .offer-badge {
+            background: var(--primary-gold);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .offer-title {
+            font-family: 'Amiri', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .offer-description {
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .offer-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+            margin-bottom: 1rem;
+        }
+
+        .offer-btn {
+            background: var(--primary-gold);
+            color: var(--white);
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.1s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .offer-btn:hover {
+            background: var(--dark-gold);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--text-dark);
+            color: var(--white);
+            padding: 40px 0 20px;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .footer h3 {
+            font-family: 'Amiri', serif;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--primary-gold);
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .copyright {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2.2rem;
+            }
+
+            .subjects-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .subject-card {
+                padding: 1.5rem;
+            }
+
+            .center-info {
+                padding: 2rem 1.5rem;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--primary-gold);
+                flex-direction: column;
+                padding: 2rem 0;
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.1s ease;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            }
+
+            .nav-menu.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header {
+                padding: 40px 0;
+            }
+
+            .page-title {
+                font-size: 1.8rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .subject-card {
+                padding: 1.5rem 1rem;
+            }
+
+            .center-info {
+                padding: 2rem 1rem;
+            }
+
+            .faq-question {
+                padding: 1rem;
+                font-size: 1rem;
+            }
+
+            .faq-answer-content {
+                padding: 0 1rem 1rem;
+            }
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Dropdown Menu Styles */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: var(--white);
+            min-width: 200px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+            border-radius: 10px;
+            overflow: hidden;
+            top: 100%;
+            right: 0;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-item {
+            position: relative;
+        }
+
+        .dropdown-item>a {
+            color: var(--text-dark) !important;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.1s;
+            border-radius: 0 !important;
+            background: none !important;
+            transform: none !important;
+        }
+
+        .dropdown-item>a:hover {
+            background-color: var(--light-bg) !important;
+            color: var(--primary-gold) !important;
+        }
+
+        .sub-dropdown {
+            position: relative;
+        }
+
+        .sub-dropdown-content {
+            display: none;
+            position: absolute;
+            right: 100%;
+            top: 0;
+            background-color: var(--white);
+            min-width: 150px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .sub-dropdown:hover .sub-dropdown-content {
+            display: block;
+        }
+
+        .sub-dropdown-content a {
+            color: var(--text-dark) !important;
+            padding: 10px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.1s;
+            font-size: 0.9rem;
+        }
+
+        .sub-dropdown-content a:hover {
+            background-color: var(--secondary-gold) !important;
+            color: var(--dark-gold) !important;
+        }
+
+        .sub-dropdown-content a.under-construction {
+            color: var(--text-light) !important;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .sub-dropdown-content a.under-construction:hover {
+            background-color: #f5f5f5 !important;
+            color: var(--text-light) !important;
+        }
+
+        .dropdown-arrow {
+            margin-left: 5px;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="index.html" class="logo">المستشار</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">الرئيسية</a></li>
+                <li><a href="index.html#services">خدماتنا</a></li>
+                <li><a href="index.html#contact">تواصل معنا</a></li>
+            </ul>
+            <!-- زرار الحجز -->
+            <div class="fixed-booking">
+                <button class="booking-btn" onclick="openBookingModal()">
+                    📞 الحجز والتواصل
+                </button>
+            </div>
+
+            <!-- المودال -->
+            <!-- Fixed Booking Button for Mobile -->
+            <div class="fixed-booking">
+                <button class="booking-btn" onclick="openBookingModal()">
+                    📞 الحجز والتواصل
+                </button>
+            </div>
+
+            <!-- Booking Modal -->
+            <div id="bookingModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeBookingModal()">&times;</span>
+                    <h2>طرق التواصل</h2>
+
+                    <div class="contact-options">
+                        <div class="contact-option" onclick="callDirect()">
+                            <span>📞</span>
+                            <div>اتصال مباشر</div>
+                        </div>
+                        <div class="contact-option" onclick="openWhatsApp()">
+                            <span>💬</span>
+                            <div>واتساب</div>
+                        </div>
+                        <div class="contact-option" onclick="openWhatsAppgrop()">
+                            <span>💬</span>
+                            <div>جروب الواتساب</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <style>
+                /* زرار ثابت تحت */
+                /* Loading animation */
+                .loading {
+                    opacity: 0;
+                    transform: translateY(40px);
+                    transition: all 0.6s ease-out;
+                }
+
+                .loading.loaded {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+
+                /* Booking Button Styles */
+                .booking-btn {
+                    background: linear-gradient(135deg, #28a745, #20c997);
+                    color: white;
+                    padding: 0.8rem 1.5rem;
+                    border: none;
+                    border-radius: 25px;
+                    font-weight: 600;
+                    font-size: 0.9rem;
+                    cursor: pointer;
+                    transition: all 0.1s ease;
+                    text-decoration: none;
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+                    animation: pulse 2s infinite;
+                }
+
+                .booking-btn:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+                }
+
+                @keyframes pulse {
+                    0% {
+                        box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+                    }
+
+                    50% {
+                        box-shadow: 0 4px 20px rgba(40, 167, 69, 0.5);
+                    }
+
+                    100% {
+                        box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+                    }
+                }
+
+                /* Modal Styles */
+                .modal {
+                    display: none;
+                    position: fixed;
+                    z-index: 2000;
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.5);
+                    backdrop-filter: blur(5px);
+                }
+
+                .modal-content {
+                    background-color: var(--white);
+                    margin: 5% auto;
+                    padding: 2rem;
+                    border-radius: 20px;
+                    width: 90%;
+                    max-width: 500px;
+                    position: relative;
+                    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+                    animation: modalSlideIn 0.3s ease;
+                }
+
+                @keyframes modalSlideIn {
+                    from {
+                        opacity: 0;
+                        transform: translateY(-50px);
+                    }
+
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+
+                .close {
+                    color: #aaa;
+                    float: left;
+                    font-size: 28px;
+                    font-weight: bold;
+                    cursor: pointer;
+                    position: absolute;
+                    top: 15px;
+                    left: 20px;
+                }
+
+                .close:hover {
+                    color: var(--primary-gold);
+                }
+
+                .modal h2 {
+                    font-family: 'Amiri', serif;
+                    color: var(--text-dark);
+                    margin-bottom: 1.5rem;
+                    text-align: center;
+                }
+
+                .contact-options {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+                    gap: 1rem;
+                    margin-bottom: 2rem;
+                }
+
+                .contact-option {
+                    background: var(--light-bg);
+                    padding: 1rem;
+                    border-radius: 15px;
+                    text-align: center;
+                    cursor: pointer;
+                    transition: all 0.1s ease;
+                    border: 2px solid transparent;
+                    color: #2C2C2C;
+                }
+
+                .contact-option:hover {
+                    background: var(--secondary-gold);
+                    border-color: var(--primary-gold);
+                    transform: translateY(-3px);
+                }
+
+                .contact-option span {
+                    font-size: 2rem;
+                    display: block;
+                    margin-bottom: 0.5rem;
+                }
+
+                .booking-form {
+                    display: grid;
+                    gap: 1rem;
+                }
+
+                .form-group {
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .form-group label {
+                    margin-bottom: 0.5rem;
+                    font-weight: 600;
+                    color: var(--text-dark);
+                }
+
+                .form-group input,
+                .form-group select,
+                .form-group textarea {
+                    padding: 0.8rem;
+                    border: 2px solid #e0e0e0;
+                    border-radius: 10px;
+                    font-size: 1rem;
+                    transition: border-color 0.1s ease;
+                    font-family: 'Cairo', sans-serif;
+                }
+
+                .form-group input:focus,
+                .form-group select:focus,
+                .form-group textarea:focus {
+                    outline: none;
+                    border-color: var(--primary-gold);
+                }
+
+                .submit-btn {
+                    background: linear-gradient(135deg, var(--primary-gold), var(--dark-gold));
+                    color: white;
+                    padding: 1rem;
+                    border: none;
+                    border-radius: 10px;
+                    font-size: 1.1rem;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: all 0.1s ease;
+                    margin-top: 1rem;
+                }
+
+                .submit-btn:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+                }
+
+                /* Fixed booking button */
+                .fixed-booking {
+                    position: fixed;
+                    bottom: 20px;
+                    right: 20px;
+                    z-index: 1500;
+                    display: none;
+                }
+
+                @media (max-width: 768px) {
+                    .fixed-booking {
+                        display: block;
+                    }
+
+                    .modal-content {
+                        margin: 10% auto;
+                        width: 90%;
+                        height: 70%;
+                        padding: 1.5rem;
+                    }
+
+                    .contact-options {
+                        grid-template-columns: 1fr;
+                        color: #2C2C2C;
+                    }
+                }
+            </style>
+
+            <script>
+                // Booking Modal Functions
+                function openBookingModal() {
+                    document.getElementById('bookingModal').style.display = 'block';
+                    document.body.style.overflow = 'hidden';
+                }
+
+                function closeBookingModal() {
+                    document.getElementById('bookingModal').style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+
+                function callDirect() {
+                    window.location.href = 'tel:01277776870';
+                }
+
+                function openWhatsApp() {
+                    const message = encodeURIComponent('السلام عليكم، أريد الاستفسار عن خدمات المستشار');
+                    window.open(`https://wa.me/201277776870?text=${message}`, '_blank');
+                }
+                function openWhatsApp() {
+                    const message = encodeURIComponent('السلام عليكم، أريد الاستفسار عن خدمات المستشار');
+                    window.open(`https://chat.whatsapp.com/KbpqBUhfuBLJZg0IAz3GH2?mode=ems_wa_t`, '_blank');
+                }
+
+
+                // Close modal when clicking outside
+                window.onclick = function (event) {
+                    const modal = document.getElementById('bookingModal');
+                    if (event.target === modal) {
+                        closeBookingModal();
+                    }
+                }
+
+                // Close modal with Escape key
+                document.addEventListener('keydown', function (event) {
+                    if (event.key === 'Escape') {
+                        closeBookingModal();
+                    }
+                });
+
+            </script>
+
+
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+
+        <div class="container">
+            <a href="index.html#stages" class="back-btn">
+                ← العودة للمراحل الدراسية
+            </a>
+
+
+
+            <section class="section">
+                <div class="center-info" style="background: linear-gradient(135deg, rgb(255, 255, 255), rgb(255, 253, 253));">
+
+                    <button class="deblom" style="background-color: rgb(255, 108, 157); width: 330px;"
+                        onclick="window.open('gateolom.html', '_blank')">
+                        الشرح </button>
+                    <button class="deblom" style="background-color: rgb(248, 106, 106); width: 330px;"
+                        onclick="window.open('https://myu.bu.edu.eg', '_blank')"> المراجعه </button>
+                </div>
+            </section>
+
+            <!-- Center Info Section -->
+            <section class="section">
+                <div class="center-info">
+
+                    <h3>مركز المستشار</h3>
+                    <p>نحن في "المستشار" نفخر بخدمة طلاب كلية الحقوق منذ أكثر من 20 عاماً. نقدم لك أفضل الخدمات
+                        التعليمية والمكتبية لضمان تفوقك الأكاديمي.</p>
+                    <p><strong>🎁 عرض خاص للطلاب الجدد:</strong> نقدم محاضرات مجانية تمهيدية لمواد السنة الأولى لمساعدتك
+                        على البداية الصحيحة في رحلتك القانونية.</p>
+                    <p>مكتبتنا تحتوي على أحدث المراجع والكتب القانونية، ومذكراتنا المبسطة ستساعدك على فهم المواد بسهولة
+                        وتحقيق أعلى الدرجات.</p>
+                    <p><strong>خدماتنا تشمل:</strong> المحاضرات التفصيلية، المذكرات المبسطة، التلخيصات المركزة، خدمة
+                        التوصيل، والاستشارات الأكاديمية.</p>
+                </div>
+            </section>
+            <!-- Offers Section -->
+
+
+        </div>
+    </main>
+
+
+
+
+
+
+
+
+
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="footer-content">
+            <h3>تواصل معنا</h3>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span>📍</span>
+                    <span>بنها -
+                        برج سما (1) امام البوابه الاولى لكليه الحقوق (الاداره والسنتر)</span>
+                </div>
+                <div class="contact-item">
+                    <span>📍</span>
+                    <span> بنها - اخر سور كليه الحقوق (المكتبه)</span>
+                </div>
+                <a href="https://maps.app.goo.gl/YB4XuCGAadWpcDbh7" target="_blank" class="map-link">
+                    📍 موقعنا على الخريطة
+                </a>
+
+                <style>
+                    .map-link {
+                        display: inline-block;
+                        background: linear-gradient(135deg, #a5c07c, #a4a286);
+                        color: #fff;
+                        padding: 10px 15px;
+                        border-radius: 30px;
+                        font-size: 15px;
+                        font-weight: bold;
+                        text-decoration: none;
+                        transition: 0.3s;
+                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                    }
+
+                    .map-link:hover {
+                        background: linear-gradient(135deg, #eff7b0, #f8ff1f);
+                        transform: translateY(-3px);
+                        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+                        color: #000000;
+
+                    }
+                </style>
+                <div class="contact-item">
+                    <span>📞</span>
+                    <span>01277776870</span>
+                </div>
+                <div class="contact-item">
+                    <span>📞</span>
+                    <span>01273665287</span>
+                </div>
+                <div class="contact-item">
+                    <span>📞</span>
+                    <span>01021404059 (تقييم الخدمه)</span>
+                </div>
+                <div class="contact-item">
+                    <span>⏰</span>
+                    <span>يومياً من 9 صباحاً - 4 مساءً</span>
+                </div>
+            </div>
+            <button class="booking-btn" onclick="openBookingModal()" style="margin: 1rem 0;">
+                📱 الحجز والتواصل
+            </button>
+            <div class="copyright">
+                <p>&copy; 2025-2026 المستشار - المكتبة القانونية. جميع الحقوق محفوظة.</p>
+                <p>خبرة تتجاوز 20 عاماً في خدمة طلاب كلية الحقوق</p>
+            </div>
+        </div>
+    </footer>
+    <!-- JavaScript for FAQ Accordion -->
+    <script>
+        // FAQ Accordion functionality
+        function toggleFAQ(button) {
+            const faqItem = button.parentElement;
+            const answer = faqItem.querySelector('.faq-answer');
+            const isActive = button.classList.contains('active');
+
+            // Close all FAQ items
+            document.querySelectorAll('.faq-question').forEach(q => {
+                q.classList.remove('active');
+                q.parentElement.querySelector('.faq-answer').classList.remove('active');
+            });
+
+            // If this item wasn't active, open it
+            if (!isActive) {
+                button.classList.add('active');
+                answer.classList.add('active');
+            }
+        }
+
+        function toggleDropdown(event, element) {
+            event.preventDefault();
+        }
+
+        function toggleSubDropdown(event, element) {
+            event.preventDefault();
+        }
+
+        function showUnderConstruction(event) {
+            event.preventDefault();
+            alert('هذا القسم تحت الإنشاء - سيتم إضافته قريباً');
+        }
+    </script>
+</body>
+
+</html>
