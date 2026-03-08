@@ -234,7 +234,7 @@
         if (!storedKey) {
             console.log("No activation key found. Redirecting to activation page...");
             const courseValue = '30';
-            const targetUrl = 'term.html';
+            const targetUrl = 'currentPage';
             window.location.href = 'activation-code/activation-key.html?course=' + courseValue + '&pdf_id=' + encodeURIComponent(pdfId) + '&targetUrl=' + encodeURIComponent(targetUrl);
         } else {
             console.log("Valid activation key found. Access granted.");
@@ -244,4 +244,5 @@
 
 
 </html>
+
 
