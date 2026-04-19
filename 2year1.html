@@ -1107,32 +1107,36 @@
     </footer>
     <!-- JavaScript for FAQ Accordion -->
    <script>
-function getCookie(name) {
-    const nameEQ = name + "=";
-    const ca = document.cookie.split(';');
-    for (let i = 0; i < ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-    }
-    return null;
-}
+ function toggleFAQ(button) {
+            const faqItem = button.parentElement;
+            const answer = faqItem.querySelector('.faq-answer');
+            const isActive = button.classList.contains('active');
 
-const pdfId = 'term_2';
-const cookieName = 'pdf_' + pdfId.replace(/\s+/g, '_') + '_key';
-const storedKey = getCookie(cookieName);
+            // Close all FAQ items
+            document.querySelectorAll('.faq-question').forEach(q => {
+                q.classList.remove('active');
+                q.parentElement.querySelector('.faq-answer').classList.remove('active');
+            });
 
-if (!storedKey) {
-    const courseValue = '30';
-    const targetUrl = 'med1.html'; // أو اسم الصفحة الصحيح
-    window.location.href =
-        '../activation-code/activation-key.html?course=' +
-        courseValue +
-        '&pdf_id=' + encodeURIComponent(pdfId) +
-        '&targetUrl=' + encodeURIComponent(targetUrl);
-} else {
-    console.log('Valid activation key found. Access granted.');
-}
+            // If this item wasn't active, open it
+            if (!isActive) {
+                button.classList.add('active');
+                answer.classList.add('active');
+            }
+        }
+
+        function toggleDropdown(event, element) {
+            event.preventDefault();
+        }
+
+        function toggleSubDropdown(event, element) {
+            event.preventDefault();
+        }
+
+        function showUnderConstruction(event) {
+            event.preventDefault();
+            alert('هذا القسم تحت الإنشاء - سيتم إضافته قريباً');
+        }
 </script>
 </body>
 
