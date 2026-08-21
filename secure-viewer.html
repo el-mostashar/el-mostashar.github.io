@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عرض المذكرة | محمية</title>
+    <!-- استدعاء مكتبة PDF.js للطريقة العادية -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body, html { margin: 0; padding: 0; height: 100%; background-color: #1e293b; font-family: 'Tajawal', sans-serif; }
+        
+        /* تصميم الإطار (جوجل درايف) */
+        iframe { width: 100%; height: 100vh; border: none; }
+        
+        /* تصميم الـ Canvas (الطريقة المباشرة) */
+        #pdf-render-container { display: flex; flex-direction: column; align-items: center; gap: 20px; padding: 20px 0; overflow-y: auto; height: 100vh; }
+        canvas { max-width: 100%; box-shadow: 0 4px 8px rgba(0,0,0,0.5); background-color: white; border-radius: 5px; }
+        
+        #loading { color: white; text-align: center; margin-top: 20%; font-size: 22px; font-weight: bold; }
+        .error-box { background: white; color: #ef4444; padding: 30px; border-radius: 10px; text-align: center; width: 80%; max-width: 400px; margin: 100px auto; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+    </style>
+</head>
+<body oncontextmenu="return false;"> <!-- قفل الكليك يمين على الصفحة كلها -->
+
+    <div id="loading"><i class="fa-solid fa-spinner fa-spin"></i> جاري تجهيز المذكرة المحمية...</div>
+    
+    <!-- الطريقة الأولى: إطار جوجل درايف -->
+<!-- الطريقة الأولى: إطار جوجل درايف مع درع الحماية -->
+    <div id="iframe-container" style="position: relative; width: 100%; height: 100vh; display: none;">
+        <!-- درع شفاف يمين -->
+        <div style="position: absolute; top: 0; right: 0; width: 65px; height: 60px; z-index: 999; cursor: default;"></div>
+        <!-- درع شفاف يسار -->
+        <div style="position: absolute; top: 0; left: 0; width: 65px; height: 60px; z-index: 999; cursor: default;"></div>
+        
+        <iframe id="pdfFrame" style="width: 100%; height: 100%; border: none;"></iframe>
+    </div>    
+    <!-- الطريقة الثانية: رسم الـ PDF كصور -->
+    <div id="pdf-render-container" style="display:none;"></div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCQMG66ctR_2o_b_38EReG7_ALuhp3OrJE",
+            authDomain: "college-platform-1.firebaseapp.com",
+            projectId: "college-platform-1"
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // قفل اختصارات الكيبورد (الطباعة والحفظ للطريقة المباشرة)
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && (e.key === 'p' || e.key === 's' || e.key === 'P' || e.key === 'S')) {
+                e.preventDefault();
+                alert("عفواً، غير مسموح بطباعة أو حفظ هذه المذكرة.");
+            }
+        });
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const pdfId = urlParams.get('id');
+
+        // التحقق من أن الطالب معه كود تفعيل
+        if (!pdfId || localStorage.getItem('access_' + pdfId) !== 'true') {
+            document.body.innerHTML = '<div class="error-box"><h2>⛔ دخول غير مصرح به</h2><p>يجب تفعيل المذكرة بالكود الخاص بها أولاً.</p><a href="index.html" style="display:inline-block; margin-top:15px; padding:10px 20px; background:#4f46e5; color:white; text-decoration:none; border-radius:5px;">العودة للرئيسية</a></div>';
+        } else {
+            // جلب رابط المذكرة من قاعدة البيانات
+            const q = query(collection(db, "pdfs"), where("id", "==", pdfId));
+            getDocs(q).then(snapshot => {
+                if(!snapshot.empty) {
+                    let link = snapshot.docs[0].data().link;
+                    
+                    // --- العقل الذكي لتحديد نوع العرض ---
+                    
+                   if (link.includes('drive.google.com')) {
+                        // 1. تشغيل طريقة جوجل درايف
+                        if(link.includes('/view')) {
+                            link = link.replace(/\/view.*/, '/preview');
+                        }
+                        const frame = document.getElementById('pdfFrame');
+                        frame.src = link;
+                        
+                        // إظهار الإطار المحمي وإخفاء رسالة التحميل
+                        document.getElementById('iframe-container').style.display = 'block';
+                        document.getElementById('loading').style.display = 'none';
+                        
+                    } else {
+                        // 2. تشغيل طريقة الرسم (Canvas) للملفات المباشرة (مثل Firebase Storage)
+                        document.getElementById('pdf-render-container').style.display = 'flex';
+                        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+                        
+                        const loadingTask = pdfjsLib.getDocument(link);
+                        loadingTask.promise.then(pdf => {
+                            document.getElementById('loading').style.display = 'none';
+                            const container = document.getElementById('pdf-render-container');
+                            
+                            for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+                                pdf.getPage(pageNum).then(page => {
+                                    const scale = 1.5; 
+                                    const viewport = page.getViewport({ scale: scale });
+                                    const canvas = document.createElement('canvas');
+                                    const context = canvas.getContext('2d');
+                                    canvas.height = viewport.height;
+                                    canvas.width = viewport.width;
+                                    page.render({ canvasContext: context, viewport: viewport });
+                                    container.appendChild(canvas);
+                                });
+                            }
+                        }).catch(error => {
+                            console.error(error);
+                            document.getElementById('loading').innerHTML = "حدث خطأ أثناء فتح المذكرة بالطريقة المباشرة.";
+                        });
+                    }
+                    
+                } else {
+                    document.getElementById('loading').innerHTML = "حدث خطأ: المذكرة غير موجودة.";
+                }
+            }).catch(error => {
+                document.getElementById('loading').innerHTML = "حدث خطأ في الاتصال بقاعدة البيانات.";
+            });
+        }
+    </script>
+</body>
+</html>
