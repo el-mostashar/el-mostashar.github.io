@@ -70,7 +70,82 @@
             </div>
         </div>
     </section>
+   <style>
+        /* تنسيق حاوية زر من نحن */
+        .about-btn-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 50px 0;
+            /* مسافة فوق وتحت الزرار عشان يفصل بين السكشنين بشياكة */
+        }
 
+        /* تنسيق الزرار نفسه */
+        .premium-about-btn {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px 50px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: 'Cairo', sans-serif;
+            color: #fff;
+            background: linear-gradient(135deg, #0a3d2e 0%, #145e48 100%);
+            /* أخضر ملكي */
+            border: 2px solid #d4af37;
+            /* إطار ذهبي */
+            border-radius: 50px;
+            /* حواف دائرية بالكامل */
+            text-decoration: none;
+            box-shadow: 0 10px 20px rgba(10, 61, 46, 0.2);
+            overflow: hidden;
+            transition: all 0.4s ease;
+            z-index: 1;
+        }
+
+        /* تأثير لمعان خفيف بيمر على الزرار */
+        .premium-about-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.4), transparent);
+            transition: left 0.5s ease;
+            z-index: -1;
+        }
+
+        /* تأثيرات عند وقوف الماوس (Hover) */
+        .premium-about-btn:hover {
+            transform: translateY(-5px);
+            /* يترفع لفوق شوية */
+            box-shadow: 0 15px 25px rgba(212, 175, 55, 0.3);
+            /* توهج ذهبي */
+            background: #d4af37;
+            /* الخلفية تقلب ذهبي */
+            color: #0a3d2e;
+            /* الكلام يقلب أخضر */
+            border-color: #0a3d2e;
+        }
+
+        .premium-about-btn:hover::before {
+            left: 100%;
+            /* تحريك اللمعان */
+        }
+
+        /* حركة السهم جوه الزرار */
+        .premium-about-btn .arrow {
+            transition: transform 0.3s ease;
+        }
+
+        .premium-about-btn:hover .arrow {
+            transform: translateX(-8px);
+            /* السهم يتحرك لليسار مع لغة عربية */
+        }
+    </style>
     <!-- Services Section -->
         <div class="about-btn-container">
         <a href="about.html" class="premium-about-btn">
