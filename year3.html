@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الفرقة الثالثة | المنصة التعليمية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --primary-color: #4f46e5; --bg-color: #f3f4f6; --text-main: #1f2937; }
+        body { font-family: 'Tajawal', sans-serif; background-color: var(--bg-color); margin: 0; padding: 0; }
+        .header { background: linear-gradient(135deg, var(--primary-color), #4338ca); color: white; padding: 40px 20px; text-align: center; margin-bottom: 40px; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; box-shadow: 0 10px 25px rgba(79, 70, 229, 0.2); }
+        .header h1 { margin: 0; font-size: 36px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px 50px; }
+        
+        /* الشبكة الأساسية */
+        .grid-layout { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
+        
+        /* تصميم كارت القسم (المجلد) */
+        .category-card { background: white; border-radius: 15px; padding: 40px 20px; text-align: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); cursor: pointer; transition: 0.3s; border: 2px solid transparent; }
+        .category-card:hover { transform: translateY(-5px); border-color: var(--primary-color); box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.2); }
+        .category-icon { font-size: 60px; color: #fbbf24; margin-bottom: 15px; } /* لون المجلد أصفر */
+        .category-card h3 { font-size: 24px; margin: 0 0 10px 0; color: var(--text-main); }
+        .category-count { color: #6b7280; font-size: 16px; font-weight: bold; background: #f3f4f6; padding: 5px 15px; border-radius: 20px; display: inline-block; }
+
+        /* تصميم كارت المذكرة */
+        .pdf-card { background: white; border-radius: 15px; padding: 25px; text-align: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); transition: transform 0.3s; position: relative; overflow: hidden;}
+        .pdf-card:hover { transform: translateY(-5px); }
+        .free-badge { position: absolute; top: 15px; right: -35px; background: #10b981; color: white; padding: 5px 40px; transform: rotate(45deg); font-weight: bold; font-size: 14px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);}
+        .pdf-icon { font-size: 50px; color: #ef4444; margin-bottom: 15px; }
+        .pdf-title { font-size: 20px; font-weight: 700; margin-bottom: 20px; color: var(--text-main); line-height: 1.4;}
+        
+        /* الأزرار */
+        .view-btn { display: inline-block; width: 100%; padding: 12px 0; color: white; text-decoration: none; border-radius: 10px; font-weight: bold; transition: 0.3s; box-sizing: border-box; cursor: pointer; }
+        .btn-locked { background: var(--primary-color); }
+        .btn-locked:hover { background: #4338ca; }
+        .btn-free { background: #10b981; }
+        .btn-free:hover { background: #059669; }
+        
+        .back-btn { background: #64748b; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px; margin-bottom: 25px; font-family: 'Tajawal'; transition: 0.3s; }
+        .back-btn:hover { background: #475569; }
+        
+        .section-title { font-size: 24px; color: var(--primary-color); border-bottom: 2px solid #cbd5e1; padding-bottom: 10px; margin-bottom: 25px; display: flex; align-items: center; gap: 10px; }
+        .loading { text-align: center; font-size: 18px; padding: 50px; color: #6b7280; }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <h1> مذكرات الفرقة الثالثة</h1>
+    </header>
+
+    <div class="container">
+        <div id="loading" class="loading"><i class="fa-solid fa-spinner fa-spin"></i> جاري تحميل الأقسام...</div>
+        
+        <!-- الشاشة الأولى: عرض الأقسام (المجلدات) -->
+        <div id="categoriesView" class="grid-layout"></div>
+
+        <!-- الشاشة الثانية: عرض المذكرات داخل القسم المختار -->
+        <div id="pdfsView" style="display: none;">
+            <button class="back-btn" id="backBtn"><i class="fa-solid fa-arrow-right"></i> رجوع للأقسام</button>
+            <h2 class="section-title" id="currentCategoryTitle"></h2>
+            <div id="pdfContainer" class="grid-layout"></div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCQMG66ctR_2o_b_38EReG7_ALuhp3OrJE",
+            authDomain: "college-platform-1.firebaseapp.com",
+            projectId: "college-platform-1"
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // متغيرات للتحكم في الشاشات
+        const categoriesView = document.getElementById('categoriesView');
+        const pdfsView = document.getElementById('pdfsView');
+        const pdfContainer = document.getElementById('pdfContainer');
+        const backBtn = document.getElementById('backBtn');
+        const currentCategoryTitle = document.getElementById('currentCategoryTitle');
+        const loading = document.getElementById('loading');
+
+        const yearKey = 'year3';
+        const sectionAccessKey = category => `access_section_${yearKey}_${encodeURIComponent(category.trim())}`;
+
+        // أوبجيكت هنخزن فيه الداتا متقسمة
+        let categoriesObj = {};
+        let sectionPrices = {};
+
+        async function loadData() {
+            try {
+                // هنجيب بيانات الفرقة الثالثة
+                const q = query(collection(db, "pdfs"), where("year", "==", "year3")); 
+                const querySnapshot = await getDocs(q);
+                loading.style.display = 'none';
+
+                if (querySnapshot.empty) {
+                    categoriesView.innerHTML = '<h3 style="text-align:center; width: 100%; color:#6b7280;">لا توجد مذكرات متاحة حالياً.</h3>';
+                    return;
+                }
+
+                const sectionSnapshot = await getDocs(query(collection(db, "sections"), where("year", "==", yearKey)));
+                sectionSnapshot.forEach(sectionDoc => {
+                    const sectionData = sectionDoc.data();
+                    if (typeof sectionData.category !== 'string') {
+                        throw new Error("بيانات أحد أسعار الأقسام غير مكتملة.");
+                    }
+                    const price = Number(sectionData.price);
+                    if (!Number.isFinite(price) || price < 0) {
+                        throw new Error(`سعر القسم ${sectionData.category} غير صحيح.`);
+                    }
+                    sectionPrices[sectionData.category.trim()] = price;
+                });
+
+                // تجميع المذكرات في أقسام
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const cat = data.category || "أقسام أخرى";
+                    if (!categoriesObj[cat]) { categoriesObj[cat] = []; }
+                    categoriesObj[cat].push(data);
+                });
+
+                // رسم الشاشة الأولى (المجلدات)
+                for (const [categoryName, pdfsArray] of Object.entries(categoriesObj)) {
+                    const folderCard = document.createElement('div');
+                    folderCard.className = 'category-card';
+                    folderCard.innerHTML = `
+                        <i class="fa-solid fa-folder-open category-icon"></i>
+                        <h3>${categoryName}</h3>
+                        <div class="category-count">${pdfsArray.length} ملفات</div>
+                        <div class="category-count">${Object.prototype.hasOwnProperty.call(sectionPrices, categoryName.trim()) ? (sectionPrices[categoryName.trim()] === 0 ? 'مجاناً' : `${sectionPrices[categoryName.trim()]} جنيه للقسم`) : 'السعر غير محدد'}</div>
+                    `;
+                    
+                    // لما الطالب يدوس على المجلد
+                    folderCard.addEventListener('click', () => openCategory(categoryName, pdfsArray));
+                    
+                    categoriesView.appendChild(folderCard);
+                }
+
+                const requestedCategory = new URLSearchParams(window.location.search).get('category');
+                if (requestedCategory && categoriesObj[requestedCategory]) {
+                    openCategory(requestedCategory, categoriesObj[requestedCategory]);
+                }
+
+            } catch (error) {
+                console.error(error);
+                loading.innerHTML = 'حدث خطأ في تحميل المذكرات وأسعار الأقسام. حاول تحديث الصفحة.';
+                loading.style.display = 'block';
+            }
+        }
+
+        // دالة لفتح القسم ورسم المذكرات اللي جواه
+        function openCategory(categoryName, pdfsArray) {
+            const categoryKey = categoryName.trim();
+            const hasSectionPrice = Object.prototype.hasOwnProperty.call(sectionPrices, categoryKey);
+            if (!hasSectionPrice) {
+                alert("لم يتم تحديد سعر لهذا القسم بعد. يرجى التواصل مع الإدارة.");
+                return;
+            }
+            const requiresActivation = sectionPrices[categoryKey] > 0;
+            if (requiresActivation && localStorage.getItem(sectionAccessKey(categoryName)) !== 'true') {
+                const params = new URLSearchParams({ year: yearKey, category: categoryName });
+                window.location.href = `activation.html?${params.toString()}`;
+                return;
+            }
+
+            categoriesView.style.display = 'none'; // إخفاء المجلدات
+            pdfsView.style.display = 'block'; // إظهار شاشة المذكرات
+            
+            const priceLabel = hasSectionPrice
+                ? (sectionPrices[categoryKey] === 0 ? 'مجاناً' : `${sectionPrices[categoryKey]} جنيه`)
+                : 'السعر غير محدد - راجع الإدارة';
+            currentCategoryTitle.innerHTML = `<i class="fa-solid fa-folder-open"></i> قسم: ${categoryName} (${priceLabel})`;
+            pdfContainer.innerHTML = ''; // تفريغ الحاوية القديمة
+
+            pdfsArray.forEach(data => {
+                const card = document.createElement('div');
+                card.className = 'pdf-card';
+                
+                const isFree = !requiresActivation;
+                const targetUrl = isFree ? data.link : `secure-viewer.html?id=${encodeURIComponent(data.id)}`;
+                const btnClass = isFree ? "btn-free" : "btn-locked";
+                const btnText = isFree ? '<i class="fa-solid fa-eye"></i> عرض مجاني' : '<i class="fa-solid fa-lock"></i> فتح المذكرة';
+                const badgeHTML = isFree ? '<div class="free-badge">مجاناً</div>' : '';
+
+                card.innerHTML = `
+                    ${badgeHTML}
+                    <i class="fa-solid fa-file-pdf pdf-icon"></i>
+                    <div class="pdf-title">${data.name}</div>
+                    <a href="${targetUrl}" class="view-btn ${btnClass}">${btnText}</a>
+                `;
+                pdfContainer.appendChild(card);
+            });
+        }
+
+        // زرار الرجوع
+        backBtn.addEventListener('click', () => {
+            pdfsView.style.display = 'none';
+            categoriesView.style.display = 'grid';
+        });
+
+        loadData();
+    </script>
+</body>
+</html>
