@@ -84,7 +84,30 @@
         const currentCategoryTitle = document.getElementById('currentCategoryTitle');
         const loading = document.getElementById('loading');
 
-        const yearKey = 'year1';
+        const YEAR_NAMES = {
+            year1: 'الفرقة الأولى',
+            year2: 'الفرقة الثانية',
+            year3: 'الفرقة الثالثة',
+            year4: 'الفرقة الرابعة',
+            dip1: 'دبلومة القانون العام',
+            dip2: 'دبلوم القانون الخاص',
+            dip3: 'دبلوم القانون الدولي',
+            dip4: 'دبلوم العلوم الجنائية',
+            dip5: 'دبلوم العلوم الإدارية',
+            dip6: 'دبلوم التجارة والاستثمار',
+            dip7: 'دبلوم التحكيم'
+        };
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const requestedYear = urlParams.get('year');
+        const yearKey = (requestedYear && YEAR_NAMES[requestedYear]) ? requestedYear : 'year1';
+
+        document.title = `${YEAR_NAMES[yearKey]} | المنصة التعليمية`;
+        const headerTitleEl = document.querySelector('.header h1');
+        if (headerTitleEl) {
+            headerTitleEl.textContent = `مذكرات ${YEAR_NAMES[yearKey]}`;
+        }
+
         const sectionAccessKey = category => `access_section_${yearKey}_${encodeURIComponent(category.trim())}`;
 
         // أوبجيكت هنخزن فيه الداتا متقسمة
@@ -93,8 +116,8 @@
 
         async function loadData() {
             try {
-                // هنجيب بيانات الفرقة الأولى
-                const q = query(collection(db, "pdfs"), where("year", "==", "year1")); 
+                // هنجيب بيانات الفرقة أو الدبلومة المحددة
+                const q = query(collection(db, "pdfs"), where("year", "==", yearKey)); 
                 const querySnapshot = await getDocs(q);
                 loading.style.display = 'none';
 

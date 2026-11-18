@@ -111,15 +111,19 @@
         const urlParams = new URLSearchParams(window.location.search);
         const year = urlParams.get('year');
         const category = urlParams.get('category');
-        const validYears = ['year1', 'year2', 'year3', 'year4'];
+        const validYears = ['year1', 'year2', 'year3', 'year4', 'dip1', 'dip2', 'dip3', 'dip4', 'dip5', 'dip6', 'dip7'];
 
         if (!validYears.includes(year) || !category || !category.trim()) {
             window.location.href = "index.html";
         }
 
+        const getReturnUrl = (yr, cat) => yr.startsWith('dip')
+            ? `year1.html?year=${encodeURIComponent(yr)}&category=${encodeURIComponent(cat)}`
+            : `${yr}.html?category=${encodeURIComponent(cat)}`;
+
         const sectionAccessKey = `access_section_${year}_${encodeURIComponent(category.trim())}`;
         if (localStorage.getItem(sectionAccessKey) === 'true') {
-            window.location.href = `${year}.html?category=${encodeURIComponent(category)}`;
+            window.location.href = getReturnUrl(year, category);
         }
 
         document.getElementById('activationTitle').textContent = `تفعيل قسم ${category}`;
@@ -186,7 +190,7 @@
                 btn.innerHTML = '✅ كود صحيح! جاري فتح القسم...';
 
                 setTimeout(() => {
-                    window.location.href = `${year}.html?category=${encodeURIComponent(category)}`;
+                    window.location.href = getReturnUrl(year, category);
                 }, 1000);
             } catch (error) {
                 errorMsg.innerText = error.message;

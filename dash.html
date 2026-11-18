@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة تحكم الإدارة | المنصة التعليمية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --success: #10b981;
+            --danger: #ef4444;
+            --danger-hover: #dc2626;
+            --bg-body: #f1f5f9;
+            --bg-card: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--bg-body);
+            margin: 0;
+            padding: 0;
+            color: var(--text-main);
+        }
+
+        .navbar {
+            background-color: var(--bg-card);
+            padding: 20px 40px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .navbar h1 {
+            margin: 0;
+            font-size: 24px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border);
+        }
+
+        .card-header {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+            background-color: #f8fafc;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            background-color: #fff;
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+        }
+
+        .row-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: var(--danger);
+            color: white;
+            padding: 8px 15px;
+            font-size: 14px;
+            width: auto;
+            border-radius: 6px;
+        }
+
+        .btn-danger:hover {
+            background-color: var(--danger-hover);
+        }
+
+        .btn:disabled {
+            background-color: #94a3b8;
+            cursor: not-allowed;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-weight: 600;
+            text-align: center;
+            display: none;
+        }
+
+        .alert-success {
+            background-color: #d1fae5;
+            color: #065f46;
+            border: 1px solid #34d399;
+        }
+
+        /* تصميم جدول الإدارة */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th,
+        td {
+            padding: 15px;
+            text-align: right;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background-color: #f8fafc;
+            color: var(--text-muted);
+            font-weight: 700;
+        }
+
+        tr:hover {
+            background-color: #f1f5f9;
+        }
+
+        @media (max-width: 768px) {
+
+            .dashboard-container,
+            .row-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <h1><i class="fa-solid fa-gauge-high"></i> لوحة التحكم</h1>
+    </div>
+
+    <div class="dashboard-container">
+
+        <!-- قسم الرفع -->
+        <div class="card">
+            <div class="card-header"><i class="fa-solid fa-cloud-arrow-up" style="color: var(--primary)"></i> رفع مذكرة
+                جديدة</div>
+            <form id="uploadForm">
+                <div class="form-group">
+                    <label>اسم المذكرة</label>
+                    <input type="text" id="pdfName" class="form-control" required>
+                </div>
+
+                <div class="row-2">
+                    <div class="form-group">
+                        <label>الفرقة الدراسية</label>
+                        <select id="pdfYear" class="form-control" required>
+                            <option value="" disabled selected>اختر الفرقة أو الدبلومة...</option>
+                            <optgroup label="الفرق الدراسية (الليسانس)">
+                                <option value="year1">الفرقة الأولى</option>
+                                <option value="year2">الفرقة الثانية</option>
+                                <option value="year3">الفرقة الثالثة</option>
+                                <option value="year4">الفرقة الرابعة</option>
+                            </optgroup>
+                            <optgroup label="الدراسات العليا (الدبلومات)">
+                                <option value="dip1">دبلومة القانون العام</option>
+                                <option value="dip2">دبلوم القانون الخاص</option>
+                                <option value="dip3">دبلوم القانون الدولي</option>
+                                <option value="dip4">دبلوم العلوم الجنائية</option>
+                                <option value="dip5">دبلوم العلوم الإدارية</option>
+                                <option value="dip6">دبلوم التجارة والاستثمار</option>
+                                <option value="dip7">دبلوم التحكيم</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>القسم (اختر أو اكتب)</label>
+                        <input list="categoriesList" id="pdfCategory" class="form-control" required>
+                        <datalist id="categoriesList">
+                            <option value="شرح">
+                            <option value="ميدترم">
+                            <option value="مراجعة">
+                        </datalist>
+                    </div>
+                </div>
+
+                <!-- خيارات الملف أو الرابط -->
+                <div class="form-group"
+                    style="background: #f8fafc; padding: 15px; border-radius: 10px; border: 1px dashed #cbd5e1;">
+                    <label><i class="fa-solid fa-file-pdf"></i> رفع ملف PDF من الجهاز</label>
+                    <input type="file" id="pdfFile" class="form-control" accept=".pdf">
+
+                    <div style="text-align: center; margin: 10px 0; font-weight: bold; color: #64748b;">أو</div>
+
+                    <label><i class="fa-solid fa-link"></i> وضع رابط خارجي (درايف مثلاً)</label>
+                    <input type="url" id="pdfLink" class="form-control" placeholder="لو رفعت ملف فوق، سيب دي فاضية">
+                </div>
+
+                <button type="submit" id="submitBtn" class="btn btn-primary"><i class="fa-solid fa-upload"></i> حفظ ورفع
+                    المذكرة</button>
+            </form>
+            <div class="alert alert-success" id="successMsg">✅ تم إضافة المذكرة بنجاح!</div>
+        </div>
+
+        <div class="card">
+            <div class="card-header"><i class="fa-solid fa-folder-open" style="color: var(--primary)"></i> تحديد سعر القسم بالكامل</div>
+            <p style="color: var(--text-muted); margin-top: -10px;">حدد سعرًا واحدًا للقسم، ثم أنشئ أكوادًا بنفس الفئة. الكود يفتح كل مذكرات القسم مرة واحدة. استخدم نفس اسم القسم المكتوب عند رفع المذكرات.</p>
+            <div class="row-2">
+                <div class="form-group">
+                    <label for="sectionYear">الفرقة الدراسية</label>
+                    <select id="sectionYear" class="form-control" required>
+                        <option value="" disabled selected>اختر الفرقة أو الدبلومة...</option>
+                        <optgroup label="الفرق الدراسية (الليسانس)">
+                            <option value="year1">الفرقة الأولى</option>
+                            <option value="year2">الفرقة الثانية</option>
+                            <option value="year3">الفرقة الثالثة</option>
+                            <option value="year4">الفرقة الرابعة</option>
+                        </optgroup>
+                        <optgroup label="الدراسات العليا (الدبلومات)">
+                            <option value="dip1">دبلومة القانون العام</option>
+                            <option value="dip2">دبلوم القانون الخاص</option>
+                            <option value="dip3">دبلوم القانون الدولي</option>
+                            <option value="dip4">دبلوم العلوم الجنائية</option>
+                            <option value="dip5">دبلوم العلوم الإدارية</option>
+                            <option value="dip6">دبلوم التجارة والاستثمار</option>
+                            <option value="dip7">دبلوم التحكيم</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="sectionCategory">اسم القسم</label>
+                    <input list="categoriesList" id="sectionCategory" class="form-control" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="sectionPrice">سعر القسم بالكامل (بالجنيه)</label>
+                <input type="number" id="sectionPrice" class="form-control" required min="0">
+            </div>
+            <button id="saveSectionPriceBtn" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> حفظ سعر القسم</button>
+            <div class="alert alert-success" id="sectionPriceSuccessMsg">✅ تم حفظ سعر القسم بنجاح!</div>
+            <div class="card-header" style="margin: 20px 0 0; padding: 0; border: 0; font-size: 16px;">
+                <span>أسعار الأقسام المحفوظة</span>
+                <button class="btn btn-success" style="width: auto; padding: 8px 15px; font-size: 14px;"
+                    onclick="loadAdminSections()"><i class="fa-solid fa-rotate"></i> تحديث</button>
+            </div>
+            <div style="overflow-x: auto; margin-top: 10px;">
+                <table>
+                    <thead>
+                        <tr><th>الفرقة</th><th>القسم</th><th>السعر الكامل</th><th>إجراء</th></tr>
+                    </thead>
+                    <tbody id="sectionsTableBody">
+                        <tr><td colspan="4" style="text-align:center;">جاري تحميل أسعار الأقسام...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- قسم الأكواد -->
+        <div class="card">
+            <div class="card-header"><i class="fa-solid fa-key" style="color: var(--success)"></i> إنشاء أكواد التفعيل
+            </div>
+            <div class="row-2">
+                <div class="form-group"><label>عدد الأكواد</label><input type="number" id="codesCount"
+                        class="form-control" min="1" max="200" value="10" required></div>
+                <div class="form-group"><label>سعر الكود</label><input type="number" id="codePrice" class="form-control"
+                        required min="0"></div>
+            </div>
+            <button id="generateBtn" class="btn btn-success"><i class="fa-solid fa-bolt"></i> توليد الأكواد</button>
+            <div class="alert alert-success" id="codeSuccessMsg">✅ تم الإنشاء بنجاح!</div>
+            <div id="generatedCodesBox"
+                style="background: #f8fafc; padding: 15px; border-radius: 10px; margin-top: 15px; display: none; direction: ltr; text-align: center; font-family: monospace;">
+            </div>
+        </div>
+
+        <!-- قسم الإدارة الجديد (كامل العرض) -->
+        <div class="card full-width">
+            <div class="card-header">
+                <div><i class="fa-solid fa-list-check" style="color: var(--primary)"></i> إدارة المذكرات الحالية</div>
+                <button class="btn btn-success" style="width: auto; padding: 8px 15px; font-size: 14px;"
+                    onclick="loadAdminPDFs()"><i class="fa-solid fa-rotate"></i> تحديث القائمة</button>
+            </div>
+            <div style="overflow-x: auto;">
+                <table id="pdfsTable">
+                    <thead>
+                        <tr>
+                            <th>اسم المذكرة</th>
+                            <th>الفرقة</th>
+                            <th>القسم</th>
+                            <th>إجراء</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pdfsTableBody">
+                        <!-- هيتم إضافة المذكرات هنا بالجافا سكريبت -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- قسم الإحصائيات والأرباح -->
+        <div class="card full-width" style="border-top: 4px solid #10b981;">
+            <div class="card-header">
+                <div><i class="fa-solid fa-chart-line" style="color: #10b981"></i> الإحصائيات المالية (الأرباح)</div>
+                <button class="btn btn-success" style="width: auto; padding: 8px 15px; font-size: 14px;"
+                    onclick="loadStats()"><i class="fa-solid fa-rotate"></i> تحديث الأرقام</button>
+            </div>
+            <div class="row-2" style="text-align: center; margin-top: 20px;">
+                <div style="background: #f8fafc; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                    <h3 style="margin: 0; color: #64748b; font-size: 18px;">الأكواد المفعلة (المباعة)</h3>
+                    <p id="usedCodesCount"
+                        style="font-size: 36px; font-weight: bold; color: var(--primary); margin: 10px 0 0 0;">0</p>
+                </div>
+                <div style="background: #f8fafc; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                    <h3 style="margin: 0; color: #64748b; font-size: 18px;">إجمالي الأرباح</h3>
+                    <p id="totalRevenue"
+                        style="font-size: 36px; font-weight: bold; color: #10b981; margin: 10px 0 0 0;">0 ج.م</p>
+                </div>
+            </div>
+            <button id="resetSalesBtn" class="btn btn-danger" style="margin-top: 20px;">
+                <i class="fa-solid fa-rotate-left"></i> مسح الأكواد المباعة وتصفير الإحصائيات
+            </button>
+            <p style="color: var(--text-muted); margin-bottom: 0;">سيتم حذف الأكواد المستخدمة نهائيًا، ولن يمكن استخدامها مرة أخرى.</p>
+        </div>
+
+    </div>
+
+    <!-- استدعاء مكاتب فايربيز بما فيها التخزين (Storage) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp, doc, setDoc, getDocs, deleteDoc, query, where, updateDoc, writeBatch, getDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+        // مكاتب الرفع الجديدة
+        import { getStorage, ref, uploadBytesResumable, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-storage.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCQMG66ctR_2o_b_38EReG7_ALuhp3OrJE",
+            authDomain: "college-platform-1.firebaseapp.com",
+            projectId: "college-platform-1",
+            storageBucket: "college-platform-1.firebasestorage.app", // ده مهم جداً للرفع
+            messagingSenderId: "1073248247378",
+            appId: "1:1073248247378:web:3f501319ec4119bb8f898b"
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const storage = getStorage(app); // تشغيل التخزين
+
+        const YEAR_NAMES = {
+            year1: 'الفرقة الأولى',
+            year2: 'الفرقة الثانية',
+            year3: 'الفرقة الثالثة',
+            year4: 'الفرقة الرابعة',
+            dip1: 'دبلومة القانون العام',
+            dip2: 'دبلوم القانون الخاص',
+            dip3: 'دبلوم القانون الدولي',
+            dip4: 'دبلوم العلوم الجنائية',
+            dip5: 'دبلوم العلوم الإدارية',
+            dip6: 'دبلوم التجارة والاستثمار',
+            dip7: 'دبلوم التحكيم'
+        };
+
+        document.getElementById('saveSectionPriceBtn').addEventListener('click', async () => {
+            const year = document.getElementById('sectionYear').value;
+            const category = document.getElementById('sectionCategory').value.trim();
+            const priceValue = document.getElementById('sectionPrice').value.trim();
+            const price = Number(priceValue);
+            const btn = document.getElementById('saveSectionPriceBtn');
+
+            if (!year || !category || !priceValue || !Number.isFinite(price) || price < 0) {
+                alert("يرجى اختيار الفرقة والقسم وإدخال سعر صحيح.");
+                return;
+            }
+
+            btn.disabled = true;
+            try {
+                const sectionId = `${year}_${encodeURIComponent(category)}`;
+                await setDoc(doc(db, "sections", sectionId), {
+                    year,
+                    category,
+                    price,
+                    updatedAt: serverTimestamp()
+                });
+                document.getElementById('sectionPriceSuccessMsg').style.display = "block";
+                document.getElementById('sectionPrice').value = "";
+                await loadAdminSections();
+                setTimeout(() => { document.getElementById('sectionPriceSuccessMsg').style.display = "none"; }, 3000);
+            } catch (error) {
+                console.error(error);
+                alert(error.message || "حدث خطأ أثناء حفظ سعر القسم.");
+            } finally {
+                btn.disabled = false;
+            }
+        });
+
+       // 1. نظام الرفع والحفظ مع نسبة مئوية
+        document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            const fileInput = document.getElementById('pdfFile').files[0];
+            let externalLink = document.getElementById('pdfLink').value;
+
+            if (!fileInput && !externalLink) {
+                alert("يرجى اختيار ملف PDF من الجهاز أو وضع رابط خارجي!");
+                return;
+            }
+
+            btn.disabled = true; 
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جاري التجهيز...';
+            
+            try {
+                let finalUrl = externalLink; 
+                let storagePath = null; 
+
+                if (fileInput) {
+                    const fileName = Date.now() + "_" + fileInput.name; 
+                    const storageRef = ref(storage, 'pdfs/' + fileName);
+                    
+                    // استخدام Promise عشان نتابع النسبة المئوية
+                    await new Promise((resolve, reject) => {
+                        const uploadTask = uploadBytesResumable(storageRef, fileInput);
+                        uploadTask.on('state_changed', 
+                            (snapshot) => {
+                                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                                btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> جاري الرفع: ${Math.round(progress)}%`;
+                            }, 
+                            (error) => reject(error), 
+                            async () => {
+                                finalUrl = await getDownloadURL(uploadTask.snapshot.ref);
+                                resolve();
+                            }
+                        );
+                    });
+                    storagePath = 'pdfs/' + fileName;
+                }
+
+                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جاري تسجيل البيانات...';
+
+                const newDocRef = doc(collection(db, "pdfs")); 
+                await setDoc(newDocRef, {
+                    id: newDocRef.id,
+                    name: document.getElementById('pdfName').value,
+                    year: document.getElementById('pdfYear').value,
+                    category: document.getElementById('pdfCategory').value.trim(),
+                    link: finalUrl,
+                    storagePath: storagePath,
+                    createdAt: serverTimestamp()
+                });
+
+                document.getElementById('successMsg').style.display = "block";
+                document.getElementById('uploadForm').reset();
+                setTimeout(() => { document.getElementById('successMsg').style.display = "none"; }, 3000);
+                
+                loadAdminPDFs(); 
+
+            } catch (error) { 
+                console.error(error);
+                alert("حدث خطأ أثناء الرفع! تأكد من تفعيل Storage في فايربيز."); 
+            }
+            finally { btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-upload"></i> حفظ ورفع المذكرة'; }
+        });
+
+        // 2. نظام توليد الأكواد (كما هو)
+        document.getElementById('generateBtn').addEventListener('click', async () => {
+            const count = parseInt(document.getElementById('codesCount').value);
+            const price = Number(document.getElementById('codePrice').value);
+            const btn = document.getElementById('generateBtn');
+            const box = document.getElementById('generatedCodesBox');
+
+            if (!count || !price && price !== 0) return;
+            btn.disabled = true; btn.innerHTML = 'جاري التوليد...'; box.innerHTML = "";
+            let generatedCodes = [];
+            const makeCode = () => {
+                const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; let result = '';
+                for (let i = 0; i < 6; i++) result += chars.charAt(Math.floor(Math.random() * chars.length));
+                return result;
+            };
+            try {
+                for (let i = 0; i < count; i++) {
+                    const newCode = makeCode();
+                    await addDoc(collection(db, "codes"), { code: newCode, isUsed: false, price: price, createdAt: serverTimestamp() });
+                    generatedCodes.push(newCode);
+                }
+                box.style.display = "block";
+                box.innerHTML = `<strong>أكواد فئة ${price} جنيه:</strong><br><br>` + generatedCodes.join('<br>');
+            } catch (error) { alert("حدث خطأ!"); }
+            finally { btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-bolt"></i> توليد الأكواد'; }
+        });
+
+        // 3. نظام الإدارة والمسح الجديد
+        window.loadAdminSections = async function () {
+            const tbody = document.getElementById('sectionsTableBody');
+            tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;">جاري تحميل أسعار الأقسام...</td></tr>';
+            try {
+                const snapshot = await getDocs(collection(db, "sections"));
+                const sections = snapshot.docs
+                    .map(sectionDoc => ({ id: sectionDoc.id, ...sectionDoc.data() }))
+                    .sort((a, b) => String(a.year).localeCompare(String(b.year)) || String(a.category).localeCompare(String(b.category), 'ar'));
+
+                if (!sections.length) {
+                    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;">لا توجد أسعار أقسام محفوظة حتى الآن.</td></tr>';
+                    return;
+                }
+
+                tbody.innerHTML = '';
+                sections.forEach(section => {
+                    const row = document.createElement('tr');
+                    const yearName = YEAR_NAMES[section.year] || section.year;
+                    const yearCell = document.createElement('td');
+                    yearCell.textContent = yearName;
+                    const categoryCell = document.createElement('td');
+                    categoryCell.textContent = section.category;
+                    const priceCell = document.createElement('td');
+                    priceCell.textContent = `${Number(section.price).toLocaleString('ar-EG')} ج.م`;
+                    const actionCell = document.createElement('td');
+                    const editButton = document.createElement('button');
+                    editButton.className = 'btn btn-primary';
+                    editButton.style.cssText = 'width:auto; padding:8px 12px; font-size:14px;';
+                    editButton.innerHTML = '<i class="fa-solid fa-pen"></i> تعديل';
+                    editButton.addEventListener('click', () => editSection(section.id, section.year, section.category, section.price));
+                    actionCell.appendChild(editButton);
+                    row.append(yearCell, categoryCell, priceCell, actionCell);
+                    tbody.appendChild(row);
+                });
+            } catch (error) {
+                console.error(error);
+                tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; color:red;">حدث خطأ في تحميل أسعار الأقسام.</td></tr>';
+            }
+        };
+
+        window.editSection = async function (sectionId, year, currentCategory, currentPrice) {
+            const categoryInput = prompt("اسم القسم:", currentCategory);
+            if (categoryInput === null) return;
+            const category = categoryInput.trim();
+            if (!category) {
+                alert("اسم القسم لا يمكن أن يكون فارغًا.");
+                return;
+            }
+
+            const priceInput = prompt("سعر القسم بالجنيه:", String(currentPrice));
+            if (priceInput === null) return;
+            const price = Number(priceInput.trim());
+            if (!priceInput.trim() || !Number.isFinite(price) || price < 0) {
+                alert("أدخل سعرًا صحيحًا لا يقل عن صفر.");
+                return;
+            }
+
+            try {
+                const pdfsSnapshot = await getDocs(query(collection(db, "pdfs"), where("year", "==", year)));
+                const pdfsInSection = pdfsSnapshot.docs.filter(pdfDoc =>
+                    String(pdfDoc.data().category || "أقسام أخرى").trim() === currentCategory.trim()
+                );
+                const conflictingPdfs = pdfsSnapshot.docs.some(pdfDoc =>
+                    String(pdfDoc.data().category || "أقسام أخرى").trim() === category &&
+                    category !== currentCategory.trim()
+                );
+                if (conflictingPdfs) {
+                    alert("يوجد قسم آخر بهذا الاسم في نفس الفرقة.");
+                    return;
+                }
+
+                const newSectionId = `${year}_${encodeURIComponent(category)}`;
+                const newSectionRef = doc(db, "sections", newSectionId);
+                if (newSectionId !== sectionId && (await getDoc(newSectionRef)).exists()) {
+                    alert("يوجد سعر محفوظ بالفعل لقسم بهذا الاسم.");
+                    return;
+                }
+
+                if (category !== currentCategory.trim()) {
+                    for (let start = 0; start < pdfsInSection.length; start += 450) {
+                        const batch = writeBatch(db);
+                        pdfsInSection.slice(start, start + 450).forEach(pdfDoc => {
+                            batch.update(pdfDoc.ref, { category });
+                        });
+                        await batch.commit();
+                    }
+                }
+
+                const batch = writeBatch(db);
+                batch.set(newSectionRef, { year, category, price, updatedAt: serverTimestamp() });
+                if (newSectionId !== sectionId) {
+                    batch.delete(doc(db, "sections", sectionId));
+                }
+                await batch.commit();
+
+                await Promise.all([loadAdminSections(), loadAdminPDFs()]);
+                alert("تم تعديل القسم وسعره بنجاح.");
+            } catch (error) {
+                console.error(error);
+                alert("حدث خطأ أثناء تعديل القسم. تحقق من الاتصال والصلاحيات ثم حدّث القوائم.");
+            }
+        };
+
+        window.loadAdminPDFs = async function () {
+            const tbody = document.getElementById('pdfsTableBody');
+            tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;">جاري التحميل...</td></tr>';
+            try {
+                const querySnapshot = await getDocs(collection(db, "pdfs"));
+                tbody.innerHTML = '';
+
+                if (querySnapshot.empty) {
+                    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;">لا توجد مذكرات مرفوعة حالياً.</td></tr>';
+                    return;
+                }
+
+                querySnapshot.forEach((documentSnapshot) => {
+                    const data = documentSnapshot.data();
+                    const tr = document.createElement('tr');
+
+                    const nameCell = document.createElement('td');
+                    const name = document.createElement('strong');
+                    name.textContent = data.name || '';
+                    nameCell.appendChild(name);
+                    const yearCell = document.createElement('td');
+                    yearCell.textContent = YEAR_NAMES[data.year] || data.year || '';
+                    const categoryCell = document.createElement('td');
+                    categoryCell.textContent = data.category || 'أقسام أخرى';
+                    const actionCell = document.createElement('td');
+                    const editButton = document.createElement('button');
+                    editButton.className = 'btn btn-primary';
+                    editButton.style.cssText = 'width:auto; padding:8px 12px; font-size:14px; margin-left:6px;';
+                    editButton.innerHTML = '<i class="fa-solid fa-pen"></i> الاسم';
+                    editButton.addEventListener('click', () => renamePdf(documentSnapshot.id, data.name || ''));
+                    const deleteButton = document.createElement('button');
+                    deleteButton.className = 'btn btn-danger';
+                    deleteButton.style.cssText = 'width:auto; padding:8px 12px; font-size:14px;';
+                    deleteButton.innerHTML = '<i class="fa-solid fa-trash"></i> حذف';
+                    deleteButton.addEventListener('click', () => deletePdf(data.id || documentSnapshot.id, data.storagePath || ''));
+                    actionCell.append(editButton, deleteButton);
+                    tr.append(nameCell, yearCell, categoryCell, actionCell);
+                    tbody.appendChild(tr);
+                });
+            } catch (error) {
+                console.error(error);
+                tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; color:red;">حدث خطأ في تحميل المذكرات.</td></tr>';
+            }
+        };
+
+        window.renamePdf = async function (pdfId, currentName) {
+            const nameInput = prompt("اسم المذكرة الجديد:", currentName);
+            if (nameInput === null) return;
+            const name = nameInput.trim();
+            if (!name) {
+                alert("اسم المذكرة لا يمكن أن يكون فارغًا.");
+                return;
+            }
+
+            try {
+                await updateDoc(doc(db, "pdfs", pdfId), { name });
+                await loadAdminPDFs();
+                alert("تم تعديل اسم المذكرة بنجاح.");
+            } catch (error) {
+                console.error(error);
+                alert("حدث خطأ أثناء تعديل اسم المذكرة.");
+            }
+        };
+
+        // دالة الحذف
+        window.deletePdf = async function (docId, storagePath) {
+            const confirmDelete = confirm("هل أنت متأكد أنك تريد حذف هذه المذكرة نهائياً؟ \nسيتم إزالتها من الموقع فوراً.");
+            if (!confirmDelete) return;
+
+            try {
+                // 1. مسح من قاعدة البيانات (Firestore)
+                await deleteDoc(doc(db, "pdfs", docId));
+
+                // 2. لو الملف مرفوع على السيرفر بتاعنا، نمسحه عشان نوفر مساحة
+                if (storagePath) {
+                    const fileRef = ref(storage, storagePath);
+                    await deleteObject(fileRef).catch(e => console.log("ملف التخزين غير موجود أو تم حذفه مسبقاً"));
+                }
+
+                alert("تم حذف المذكرة بنجاح!");
+                loadAdminPDFs(); // تحديث الجدول بعد الحذف
+            } catch (error) {
+                console.error(error);
+                alert("حدث خطأ أثناء الحذف!");
+            }
+        };
+
+        // تحميل الجدول أول ما الصفحة تفتح
+        loadAdminPDFs();
+        loadAdminSections();
+        // 4. نظام الإحصائيات المالية
+        window.loadStats = async function () {
+            const countDisplay = document.getElementById('usedCodesCount');
+            const revenueDisplay = document.getElementById('totalRevenue');
+
+            countDisplay.innerText = '...';
+            revenueDisplay.innerText = '...';
+
+            try {
+                // هنجيب كل الأكواد من الداتا بيز
+                const querySnapshot = await getDocs(collection(db, "codes"));
+                let usedCount = 0;
+                let totalRevenue = 0;
+
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    // لو الكود تم استخدامه
+                    if (data.isUsed === true) {
+                        usedCount++;
+                        // بنجمع سعره على الإجمالي (ولو مفيش سعر متسجل بنعتبره صفر عشان ميعملش خطأ)
+                        totalRevenue += (data.price || 0);
+                    }
+                });
+
+                // عرض الأرقام النهائية في الشاشة
+                countDisplay.innerText = usedCount;
+                revenueDisplay.innerText = totalRevenue + ' ج.م';
+
+            } catch (error) {
+                console.error("خطأ في جلب الإحصائيات: ", error);
+                countDisplay.innerText = 'خطأ';
+                revenueDisplay.innerText = 'خطأ';
+            }
+        };
+
+        document.getElementById('resetSalesBtn').addEventListener('click', async () => {
+            const confirmed = confirm(
+                "سيتم حذف كل الأكواد المستخدمة نهائيًا، ولن تعمل هذه الأكواد مرة أخرى. هل تريد تصفير عدد الأكواد المباعة والأرباح؟"
+            );
+            if (!confirmed) return;
+
+            const btn = document.getElementById('resetSalesBtn');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جاري حذف الأكواد المستخدمة...';
+            try {
+                const usedCodes = await getDocs(query(collection(db, "codes"), where("isUsed", "==", true)));
+                for (let start = 0; start < usedCodes.docs.length; start += 450) {
+                    const batch = writeBatch(db);
+                    usedCodes.docs.slice(start, start + 450).forEach(codeDoc => batch.delete(codeDoc.ref));
+                    await batch.commit();
+                }
+
+                await loadStats();
+                alert(`تم حذف ${usedCodes.size} كود مستخدم وتصفير الإحصائيات.`);
+            } catch (error) {
+                console.error(error);
+                alert("حدث خطأ أثناء حذف الأكواد المستخدمة. حدّث الإحصائيات وتحقق من الأكواد قبل إعادة المحاولة.");
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-solid fa-rotate-left"></i> مسح الأكواد المباعة وتصفير الإحصائيات';
+            }
+        });
+
+        // تشغيل الإحصائيات أوتوماتيك أول ما الداشبورد تفتح
+        loadStats();
+    </script>
+</body>
+
+</html>
